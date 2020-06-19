@@ -43,18 +43,29 @@ export default [
     label: 'Navigation menu',
     content: JSON.parse(
       `[
-  {
-    "label": "Dashboards",
-    "icon": "DashboardTwoToneIcon",
-    "content": [
-      {
-        "label": "Default",
-        "description": "This is a dashboard page example built using this template.",
-        "to": "/DashboardDefault"
-      }
-    ]
-  },
-  {
+        {
+          "label": "Login",
+          "icon": "DashboardTwoToneIcon",
+          "content": [
+            {
+              "label": "Login",
+              "description": "This is a Login page",
+              "to": "/login"
+            }
+          ]
+        },
+        {
+          "label": "Dashboards",
+          "icon": "DashboardTwoToneIcon",
+          "content": [
+            {
+              "label": "Default",
+              "description": "This is a dashboard page example built using this template.",
+              "to": "/DashboardDefault"
+            }
+          ]
+        },
+              {
     "label": "Elements",
     "icon": "SettingsIcon",
     "content": [

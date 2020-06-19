@@ -7,7 +7,8 @@ import {
   Divider
 } from '@material-ui/core';
 
-import { FormLabel, FormGroup } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from '@material-ui/core';
 
 export default function Login() {
 
@@ -60,7 +61,12 @@ export default function Login() {
                     label="Password"
                     variant="outlined"
                   />
-                  <button type='submit'>Login</button>
+      <Button variant="contained" color="primary" className="m-2">
+        <span className="btn-wrapper--icon">
+          <FontAwesomeIcon icon={['far', 'lightbulb']} />
+        </span>
+        <span className="btn-wrapper--label">Login</span>
+      </Button>
                 </div>
               </Grid>
             </Grid>
