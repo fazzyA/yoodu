@@ -24,6 +24,7 @@ import UtilitiesHelpers from './example-pages/UtilitiesHelpers';
 import RegularTables1 from './example-pages/RegularTables1';
 import RegularTables4 from './example-pages/RegularTables4';
 import FormsControls from './example-pages/FormsControls';
+import Login from './components/auth/Login';
 
 const DashboardDefault = lazy(() => import('./example-pages/DashboardDefault'));
 const Cards3 = lazy(() => import('./example-pages/Cards3'));
@@ -112,7 +113,8 @@ const Routes = () => {
                 '/FormsControls',
                 '/ApexCharts',
                 '/Maps',
-                '/ListGroups'
+                '/ListGroups',
+                '/Login'
               ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
@@ -126,6 +128,7 @@ const Routes = () => {
                       path="/DashboardDefault"
                       component={DashboardDefault}
                     />
+                    <Route path="/Login" component={Login} />
                     <Route path="/Buttons" component={Buttons} />
                     <Route path="/Dropdowns" component={Dropdowns} />
                     <Route
