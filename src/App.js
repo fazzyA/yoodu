@@ -7,6 +7,10 @@ import ScrollToTop from './utils/ScrollToTop';
 import './assets/base.scss';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+///////// My imports/////////////
+import { GlobalProvider } from './context/GlobalState';
+/////////////////////////////////////////
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   fab,
@@ -259,12 +263,14 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <BrowserRouter basename="/carolina-react-admin-dashboard-material-ui-free/">
-          <CssBaseline />
-          <ScrollToTop>
-            <Routes />
-          </ScrollToTop>
-        </BrowserRouter>
+        <GlobalProvider>
+          <BrowserRouter basename="/carolina-react-admin-dashboard-material-ui-free/">
+            <CssBaseline />
+            <ScrollToTop>
+              <Routes />
+            </ScrollToTop>
+          </BrowserRouter>
+        </GlobalProvider>
       </Provider>
     );
   }

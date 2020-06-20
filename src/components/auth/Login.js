@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext} from 'react';
 
 import {
   Grid,
@@ -9,8 +9,12 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@material-ui/core';
+import { GlobalContext } from '../../context/GlobalState';
 
 export default function Login() {
+
+  const { menu , user } = useContext(GlobalContext);
+  console.log(user.name);
 
   const handleChange = event => {
     console.log('loggedin');
@@ -40,7 +44,8 @@ export default function Login() {
             <Divider className="my-4" />
             <Grid container spacing={4}>
               <Grid item xs={12} lg={6}>
-                <div className="p-3">
+                <div className="p-3">here
+                  {/* {user.name} */}
                   <TextFieldfilled-basic
                     fullWidth
                     className="m-2"
@@ -76,4 +81,5 @@ export default function Login() {
       </Grid>
     </Fragment>
   );
+
 }
