@@ -1,42 +1,29 @@
-import React, { Fragment, useContext} from 'react';
-
+import React, { Fragment,useState, useContext} from 'react';
 import {
   Grid,
   Card,
   TextField,
   Divider
 } from '@material-ui/core';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@material-ui/core';
 import { GlobalContext } from '../../context/GlobalState';
 
 export default function Login() {
 
-  const { menu , user } = useContext(GlobalContext);
-  console.log(user.name);
+  const val = useContext(GlobalContext);
 
-  const handleChange = event => {
-    console.log('loggedin');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const handleSubmit = event => {
+    event.preventDefault();
+    const newUser={email,password}
+    console.log('newUser')
   };
 
-
-  const [state, setState] = React.useState({
-    gilad: true,
-    jason: false,
-    antoine: false,
-    currency:0
-  });
-
-  const handleChange3 = name => event => {
-    // setState({ ...state, [name]: event.target.checked });
-  };
-
-  const { gilad, jason, antoine } = state;
-
-  const error = [gilad, jason, antoine].filter(v => v).length !== 2;
   return (
     <Fragment>
+  <form onSubmit={handleSubmit}>
       <Grid container spacing={4}>
         <Grid item xs={12} lg={6}>
         <Card className="p-4 mb-4">
@@ -55,30 +42,31 @@ export default function Login() {
                   <TextField
                     fullWidth
                     className="m-2"
-                    id="filled-basic"
+                    id="email"
                     label="Email"
                     variant="filled"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <TextField
                     fullWidth
                     className="m-2"
-                    id="outlined-basic"
+                    id="password"
+                    type="passowrd"
                     label="Password"
                     variant="outlined"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
       <Button variant="contained" color="primary" className="m-2">
-        <span className="btn-wrapper--icon">
-          <FontAwesomeIcon icon={['far', 'lightbulb']} />
-        </span>
-        <span className="btn-wrapper--label">Login</span>
+        <span className="btn-wrapper--label">Continue</span>
       </Button>
                 </div>
               </Grid>
             </Grid>
           </Card>
-
         </Grid>
       </Grid>
+      </form>
+
     </Fragment>
   );
 

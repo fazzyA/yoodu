@@ -264,7 +264,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <GlobalProvider>
-          <BrowserRouter basename="/carolina-react-admin-dashboard-material-ui-free/">
+          <BrowserRouter basename="/">
             <CssBaseline />
             <ScrollToTop>
               <Routes />

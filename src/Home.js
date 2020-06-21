@@ -1,8 +1,11 @@
-import React, {Fragment} from 'react'
-import { GlobalProvider } from './context/GlobalState';
+import React, {Fragment,useContext} from 'react'
+import { GlobalContext } from './context/GlobalState';
 import { Button } from '@material-ui/core';
 
 export const Home = () => {
+    const val = useContext(GlobalContext);
+    console.log(val);
+  
     return (
         <Fragment>
             <div className='home-first'>
