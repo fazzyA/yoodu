@@ -61,7 +61,12 @@ export default [
         {
           "label": "Restaurant",
           "to": "/restaurant"          
+        },
+        {
+          "label": "Category",
+          "to": "/category"          
         }
+
 ]`,
       (key, value) => {
         if (key === 'icon') {

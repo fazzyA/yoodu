@@ -12,6 +12,8 @@ import { LeftSidebar, PresentationLayout } from './layout-blueprints';
 import Login from './components/auth/Login';
 import Home from './components/Home';
 import Restaurant from './components/Restaurant/RestaurantForm'
+import Category from './components/Category/CategoryForm'
+
 const DashboardDefault = lazy(() => import('./example-pages/DashboardDefault'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
 
@@ -72,7 +74,8 @@ const Routes = () => {
                 '/DashboardDefault',
                 '/home',
                 '/login',
-                '/restaurant'
+                '/restaurant',
+                '/category'
               ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
@@ -89,6 +92,7 @@ const Routes = () => {
                     <Route path="/login" component={Login} />
                     <Route path="/home" component={Home} />
                     <Route path="/restaurant" component={Restaurant} />
+                    <Route path="/category" component={Category} />
                   </motion.div>
                 </Switch>
               </LeftSidebar>
