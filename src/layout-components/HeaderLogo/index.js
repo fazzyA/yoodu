@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { IconButton, Box } from '@material-ui/core';
 
-import projectLogo from '../../assets/images/react.svg';
+import projectLogo from '../../assets/images/yoodu-logo.jpeg';
 
 const HeaderLogo = props => {
   return (
@@ -13,7 +13,7 @@ const HeaderLogo = props => {
       <div className={clsx('app-header-logo', {})}>
         <Box
           className="header-logo-wrapper"
-          title="Carolina React Admin Dashboard with Material-UI Free">
+          title="Yoodu">
           <Link to="/DashboardDefault" className="header-logo-wrapper-link">
             <IconButton
               color="primary"
@@ -21,12 +21,12 @@ const HeaderLogo = props => {
               className="header-logo-wrapper-btn">
               <img
                 className="app-header-logo-img"
-                alt="Carolina React Admin Dashboard with Material-UI Free"
+                alt="Yoodu"
                 src={projectLogo}
               />
             </IconButton>
           </Link>
-          <Box className="header-logo-text">Carolina</Box>
+          <Box className="header-logo-text">Yoodu</Box>
         </Box>
       </div>
     </Fragment>

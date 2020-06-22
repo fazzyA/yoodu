@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 
 import { setSidebarToggleMobile } from '../../reducers/ThemeOptions';
-import projectLogo from '../../assets/images/react.svg';
+import projectLogo from '../../assets/images/yoodu-logo.jpeg';
 
 import HeaderLogo from '../../layout-components/HeaderLogo';
 import HeaderUserbox from '../../layout-components/HeaderUserbox';
@@ -46,7 +46,7 @@ const Header = props => {
           <Hidden lgUp>
             <Box
               className="app-logo-wrapper"
-              title="Carolina React Admin Dashboard with Material-UI Free">
+              title="Yoodu">
               <Link to="/DashboardDefault" className="app-logo-link">
                 <IconButton
                   color="primary"
@@ -54,13 +54,13 @@ const Header = props => {
                   className="app-logo-btn">
                   <img
                     className="app-logo-img"
-                    alt="Carolina React Admin Dashboard with Material-UI Free"
+                    alt="Yoodu"
                     src={projectLogo}
                   />
                 </IconButton>
               </Link>
               <Hidden smDown>
-                <Box className="app-logo-text">Carolina</Box>
+                <Box className="app-logo-text">Yoodu</Box>
               </Hidden>
             </Box>
           </Hidden>
