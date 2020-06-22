@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const RestaurantForm = () => {
+ const RestaurantForm = () => {
     return (
         <div>
             
@@ -8,3 +8,4 @@ export const RestaurantForm = () => {
         </div>
     )
 }
+export default RestaurantForm;
