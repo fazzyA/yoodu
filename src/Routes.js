@@ -11,7 +11,7 @@ import MuiTheme from './theme';
 import { LeftSidebar, PresentationLayout } from './layout-blueprints';
 import Login from './components/auth/Login';
 import Home from './components/Home';
-import Restaurant from './components/Restaurant/Form'
+import Restaurant from './components/Restaurant/RestaurantForm'
 const DashboardDefault = lazy(() => import('./example-pages/DashboardDefault'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
 
