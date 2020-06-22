@@ -11,7 +11,7 @@ import MuiTheme from './theme';
 import { LeftSidebar, PresentationLayout } from './layout-blueprints';
 import Login from './components/auth/Login';
 import Home from './components/Home';
-
+import Restaurant from './components/Restaurant/Form'
 const DashboardDefault = lazy(() => import('./example-pages/DashboardDefault'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
 
@@ -71,7 +71,8 @@ const Routes = () => {
               path={[
                 '/DashboardDefault',
                 '/home',
-                '/login'
+                '/login',
+                '/restaurant'
               ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
@@ -86,7 +87,8 @@ const Routes = () => {
                       component={DashboardDefault}
                     />
                     <Route path="/login" component={Login} />
-                    <Route path="/lome" component={Home} />
+                    <Route path="/home" component={Home} />
+                    <Route path="/restaurant" component={Restaurant} />
                   </motion.div>
                 </Switch>
               </LeftSidebar>

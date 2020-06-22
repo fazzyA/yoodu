@@ -56,8 +56,11 @@ export default [
         },
         {
           "label": "Dashboard",
-          "description": "This is a dashboard page example built using this template.",
           "to": "/DashboardDefault"          
+        },
+        {
+          "label": "Restaurant",
+          "to": "/restaurant"          
         }
 ]`,
       (key, value) => {

@@ -1,11 +1,11 @@
 import React from 'react'
 
- const RestaurantForm = () => {
+ const Restaurant = () => {
     return (
         <div>
-            
+            <h1>Restaurant</h1>
             
         </div>
     )
 }
-export default RestaurantForm;
+export default Restaurant;
