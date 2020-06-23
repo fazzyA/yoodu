@@ -35,4 +35,8 @@ body {
     // width: 32px;
     height: 45px;
   }
+  .MuiTabs-flexContainer {
+    display: flex;
+    justify-content: space-between;
+}
 }

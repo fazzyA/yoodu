@@ -15,6 +15,9 @@ import { GlobalContext } from '../../context/GlobalState';
 import { Footer } from '../../layout-components';
 import Avatar from '@material-ui/core/Avatar';
 import projectLogo from '../../assets/images/yoodu-logo.jpeg';
+import TabsBasic from '../../example-components/Tabs/TabsBasic';
+import Restaurant from '../../components/Restaurant/RestaurantForm';
+import Customer from '../../components/Customer/Form';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -38,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Login(props) {
+export default function SignUp() {
   const classes = useStyles();
   const val = useContext(GlobalContext);
 
@@ -60,65 +63,11 @@ export default function Login(props) {
         <Typography component="h1" variant="h5">
           Yoodu
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}>
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link onClick={() => {
-                  const { history } = props;
-                  history.push('forgot');
-                }}
-                component="button" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link
-                onClick={() => {
-                  const { history } = props;
-                  history.push('signup');
-                }}
-                component="button"
-      
-                variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
+
+        <TabsBasic>
+          <Customer />
+          <Restaurant />
+        </TabsBasic>
       </div>
       <Box mt={8}>
         <Footer />

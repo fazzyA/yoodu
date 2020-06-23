@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Login(props) {
+export default function ForgotPassword(props) {
   const classes = useStyles();
   const val = useContext(GlobalContext);
 
@@ -72,21 +72,7 @@ export default function Login(props) {
             autoComplete="email"
             autoFocus
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          
           <Button
             type="submit"
             fullWidth
@@ -97,24 +83,20 @@ export default function Login(props) {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link onClick={() => {
-                  const { history } = props;
-                  history.push('forgot');
-                }}
-                component="button" variant="body2">
+              {/* <Link href="#" variant="body2">
                 Forgot password?
-              </Link>
+              </Link> */}
             </Grid>
             <Grid item>
               <Link
                 onClick={() => {
                   const { history } = props;
-                  history.push('signup');
+                  history.push('login');
                 }}
                 component="button"
       
                 variant="body2">
-                {"Don't have an account? Sign Up"}
+                {"Login"}
               </Link>
             </Grid>
           </Grid>

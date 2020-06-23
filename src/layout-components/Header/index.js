@@ -102,6 +102,11 @@ const Header = props => {
               </Button>
 
               <Button
+              onClick={() => {
+            const {history} = props;
+            history.push('signup');
+            }
+           }
                 size="small"
                 variant="contained"
                 color="primary">

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { AppBar, Box, Typography, Tabs, Tab } from '@material-ui/core';
-
+import Restaurant from '../../../components/Restaurant/RestaurantForm';
 import { makeStyles } from '@material-ui/core/styles';
 
 function TabPanel(props) {
@@ -27,12 +27,16 @@ TabPanel.propTypes = {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    marginTop : theme.spacing(4),
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper
+  },
+  bar: {
+    // justifyContent: 'space-between !important'
   }
 }));
 
-export default function LivePreviewExample() {
+export default function LivePreviewExample(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -42,24 +46,21 @@ export default function LivePreviewExample() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      {/* <AppBar position="static" color="default"> */}
         <Tabs
           value={value}
+          className={classes.bar}
           onChange={handleChange}
-          aria-label="simple tabs example">
-          <Tab label="Item One" />
-          <Tab label="Item Two" />
-          <Tab label="Item Three" />
+          aria-label="register">
+          <Tab label="Customer" />
+          <Tab label="Restaurant" />
         </Tabs>
-      </AppBar>
+      {/* </AppBar> */}
       <TabPanel value={value} index={0}>
-        Item One
+        {props.children[0]}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
+      {props.children[1]}
       </TabPanel>
     </div>
   );

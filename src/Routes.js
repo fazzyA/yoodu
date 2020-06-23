@@ -10,11 +10,15 @@ import MuiTheme from './theme';
 
 import { LeftSidebar, PresentationLayout } from './layout-blueprints';
 import Login from './components/auth/Login';
+import Signup from './components/auth/SignUp';
+import ForgotPassword from './components/auth/ForgotPassword';
 import Home from './components/Home';
 import Restaurant from './components/Restaurant/RestaurantForm'
 import Category from './components/Category/CategoryForm'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -67,6 +71,8 @@ const Routes = () => {
             <Route path={[
               '/LandingPage',
               '/login',
+              '/signup',
+              '/forgot'
             ]}>
               <PresentationLayout>
                 <Switch location={location} key={location.pathname}>
@@ -78,6 +84,8 @@ const Routes = () => {
                     transition={pageTransition}>
                     <Route path="/LandingPage" component={LandingPage} />
                     <Route path="/login" component={Login} />
+                    <Route path="/signup" component={Signup} />
+                    <Route path="/forgot" component={ForgotPassword} />
                   </motion.div>
                 </Switch>
               </PresentationLayout>
