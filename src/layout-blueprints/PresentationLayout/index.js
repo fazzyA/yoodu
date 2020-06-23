@@ -6,6 +6,7 @@ const PresentationLayout = props => {
   const { children } = props;
 
   return <Fragment>
+    
           {children}
     </Fragment>;
 };

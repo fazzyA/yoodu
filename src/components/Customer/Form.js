@@ -19,7 +19,7 @@ const Customer = () => {
 
 return (
     <Fragment>
-      <form className={classes.form} noValidate>
+      <form className={classes.form} >
         <TextField
           variant="outlined"
           margin="normal"

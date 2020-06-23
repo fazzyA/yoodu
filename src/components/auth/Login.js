@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -15,6 +15,7 @@ import { GlobalContext } from '../../context/GlobalState';
 import { Footer } from '../../layout-components';
 import Avatar from '@material-ui/core/Avatar';
 import projectLogo from '../../assets/images/yoodu-logo.jpeg';
+import SimpleReactValidator from 'simple-react-validator';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -42,14 +43,32 @@ export default function Login(props) {
   const classes = useStyles();
   const val = useContext(GlobalContext);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [values, setValues] = useState({});
+  const [validator, setValidator] = useState(new SimpleReactValidator());
 
   const handleSubmit = event => {
     event.preventDefault();
-    const newUser = { email, password };
-    console.log('newUser');
+    // const newUser = { email, password };
+    // console.log('newUser');
   };
+
+  const handleChange = event => {
+    setValues({
+      ...values,
+      [event.target.id]: event.target.value
+    });
+    
+    console.log(values);
+  };
+
+  // let validator = new SimpleReactValidator();
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    // Update the document title using the browser API
+    validator.showMessages();
+    console.log(validator.fieldValid('email') )
+    console.log(validator);
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -60,28 +79,38 @@ export default function Login(props) {
         <Typography component="h1" variant="h5">
           Yoodu
         </Typography>
-        <form className={classes.form} noValidate>
+
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
-            required
+            required="true"
             fullWidth
             id="email"
             label="Email Address"
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={handleChange}
+            error={validator.errorMessages.email  }
+            helperText={validator.message('email', values.email, 'required|email')}
           />
+          
+          
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
+            onChange={handleChange}
+            
             name="password"
             label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
+            error={validator.errorMessages.password  }
+            helperText={validator.message('password', values.password, 'required|min:6')}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -97,11 +126,13 @@ export default function Login(props) {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link onClick={() => {
+              <Link
+                onClick={() => {
                   const { history } = props;
                   history.push('forgot');
                 }}
-                component="button" variant="body2">
+                component="button"
+                variant="body2">
                 Forgot password?
               </Link>
             </Grid>
@@ -112,7 +143,6 @@ export default function Login(props) {
                   history.push('signup');
                 }}
                 component="button"
-      
                 variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>

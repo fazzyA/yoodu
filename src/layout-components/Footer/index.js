@@ -10,11 +10,11 @@ const Footer = props => {
   const { footerFixed } = props;
   return (
     <Fragment>
-      <Paper
+      {/* <Paper
         square
         className={clsx('app-footer text-black-50', {
           'app-footer--fixed': footerFixed
-        })}>
+        })}> */}
         <div className="app-footer--inner">
           <div className="app-footer--first">
             {/* <List dense className="d-flex align-items-center">
@@ -39,11 +39,12 @@ const Footer = props => {
             </List> */}
           </div>
           <div className="app-footer--second">
-            <span>Yoodu Admin Dashboard </span> ©
+            <span>Yoodu  ©
             2020 
+            </span>
           </div>
         </div>
-      </Paper>
+      {/* </Paper> */}
     </Fragment>
   );
 };

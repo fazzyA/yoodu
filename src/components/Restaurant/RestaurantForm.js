@@ -23,7 +23,8 @@ const Restaurant = () => {
         <TextField
           fullWidth
           required
-         margin="normal"
+          autoFocus
+          margin="normal"
           id="name"
           label="Restaurant Name"
           variant="outlined"
@@ -32,7 +33,7 @@ const Restaurant = () => {
         <TextField
           fullWidth
           required
-         margin="normal"
+          margin="normal"
           id="address"
           label="Address"
           defaultValue=""
@@ -41,7 +42,7 @@ const Restaurant = () => {
         />
         <TextField
           fullWidth
-         margin="normal"
+          margin="normal"
           id="contactperson"
           label="Contact Person"
           defaultValue=""
@@ -49,7 +50,7 @@ const Restaurant = () => {
         />
         <TextField
           fullWidth
-         margin="normal"
+          margin="normal"
           id="contactnumber"
           label="Contact Number"
           defaultValue=""
@@ -59,7 +60,7 @@ const Restaurant = () => {
         <TextField
           fullWidth
           required
-         margin="normal"
+          margin="normal"
           id="email"
           label="Email"
           defaultValue=""
@@ -68,7 +69,7 @@ const Restaurant = () => {
         <TextField
           fullWidth
           required
-         margin="normal"
+          margin="normal"
           id="password"
           label="Password"
           defaultValue=""
@@ -77,7 +78,7 @@ const Restaurant = () => {
         />
         <TextField
           fullWidth
-         margin="normal"
+          margin="normal"
           id="restaurantnumber"
           label="Restaurant Number"
           defaultValue=""
@@ -86,7 +87,7 @@ const Restaurant = () => {
         />
         <TextField
           fullWidth
-         margin="normal"
+          margin="normal"
           id="website"
           label="Restaurant Website"
           defaultValue=""
@@ -95,7 +96,7 @@ const Restaurant = () => {
         />
         <TextField
           fullWidth
-         margin="normal"
+          margin="normal"
           id="currencysymbol"
           label="Currency Symbol"
           defaultValue=""
