@@ -13,6 +13,16 @@ import Login from './components/auth/Login';
 import Home from './components/Home';
 import Restaurant from './components/Restaurant/RestaurantForm'
 import Category from './components/Category/CategoryForm'
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 
 const DashboardDefault = lazy(() => import('./example-pages/DashboardDefault'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
@@ -48,13 +58,16 @@ const Routes = () => {
           fallback={
             <div className="d-flex align-items-center vh-100 justify-content-center text-center font-weight-bold font-size-lg py-3">
               <div className="w-50 mx-auto">
-                Please wait while we load the live preview examples
+              <LinearProgress />             
               </div>
             </div>
           }>
           <Switch>
             <Redirect exact from="/" to="/LandingPage" />
-            <Route path={['/LandingPage']}>
+            <Route path={[
+              '/LandingPage',
+              '/login',
+            ]}>
               <PresentationLayout>
                 <Switch location={location} key={location.pathname}>
                   <motion.div
@@ -64,6 +77,7 @@ const Routes = () => {
                     variants={pageVariants}
                     transition={pageTransition}>
                     <Route path="/LandingPage" component={LandingPage} />
+                    <Route path="/login" component={Login} />
                   </motion.div>
                 </Switch>
               </PresentationLayout>
@@ -73,7 +87,7 @@ const Routes = () => {
               path={[
                 '/DashboardDefault',
                 '/home',
-                '/login',
+               // '/login',
                 '/restaurant',
                 '/category'
               ]}>
@@ -89,7 +103,7 @@ const Routes = () => {
                       path="/DashboardDefault"
                       component={DashboardDefault}
                     />
-                    <Route path="/login" component={Login} />
+                    {/* <Route path="/login" component={Login} /> */}
                     <Route path="/home" component={Home} />
                     <Route path="/restaurant" component={Restaurant} />
                     <Route path="/category" component={Category} />

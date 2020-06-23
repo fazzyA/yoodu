@@ -7,7 +7,7 @@ export const Home = () => {
     console.log(val);
   
     return (
-        <Fragment>
+    <Fragment>
             <div className='home-first'>
             <Button variant="contained" color="primary" className="m-2">
                 <span className="btn-wrapper--label">SignUp</span>

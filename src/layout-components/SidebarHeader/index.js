@@ -7,7 +7,7 @@ import { IconButton, Box, Tooltip } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 
-import projectLogo from '../../assets/images/react.svg';
+import projectLogo from '../../assets/images/yoodu-logo.jpeg';
 
 import { setSidebarToggleMobile } from '../../reducers/ThemeOptions';
 
@@ -26,7 +26,7 @@ const SidebarHeader = props => {
       <div className={clsx('app-sidebar-header', {})}>
         <Box
           className="header-logo-wrapper"
-          title="Carolina React Admin Dashboard with Material-UI Free">
+          title="Yoodu">
           <Link to="/DashboardDefault" className="header-logo-wrapper-link">
             <IconButton
               color="primary"
@@ -34,12 +34,12 @@ const SidebarHeader = props => {
               className="header-logo-wrapper-btn">
               <img
                 className="app-sidebar-logo"
-                alt="Carolina React Admin Dashboard with Material-UI Free"
+                alt="Yoodu"
                 src={projectLogo}
               />
             </IconButton>
           </Link>
-          <Box className="header-logo-text">Carolina</Box>
+          <Box className="header-logo-text">Yoodu</Box>
         </Box>
         <Box className="app-sidebar-header-btn-mobile">
           <Tooltip title="Toggle Sidebar" placement="right">

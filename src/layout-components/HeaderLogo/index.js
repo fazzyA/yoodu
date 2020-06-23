@@ -16,9 +16,10 @@ const HeaderLogo = props => {
           title="Yoodu">
           <Link to="/DashboardDefault" className="header-logo-wrapper-link">
             <IconButton
-              color="primary"
+             color="primary"
               size="medium"
-              className="header-logo-wrapper-btn">
+              //className="header-logo-wrapper-btn"
+              >
               <img
                 className="app-header-logo-img"
                 alt="Yoodu"

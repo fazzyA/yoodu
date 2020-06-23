@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
@@ -37,13 +38,14 @@ const Header = props => {
   return (
     <Fragment>
       <AppBar
-        color="secondary"
+        color="default"
         className={clsx('app-header', {})}
         position={headerFixed ? 'fixed' : 'absolute'}
         elevation={headerShadow ? 11 : 3}>
         {!props.isCollapsedLayout && <HeaderLogo />}
         <Box className="app-header-toolbar">
           <Hidden lgUp>
+         
             <Box
               className="app-logo-wrapper"
               title="Yoodu">
@@ -66,7 +68,7 @@ const Header = props => {
           </Hidden>
           <Hidden mdDown>
             <Box className="d-flex align-items-center">
-              <Button
+              {/* <Button
                 href="https://uifort.com/template/carolina-react-admin-dashboard-material-ui-free"
                 target="_blank"
                 size="small"
@@ -82,10 +84,29 @@ const Header = props => {
                 variant="contained"
                 color="primary">
                 View PRO Version
-              </Button>
+              </Button> */}
             </Box>
           </Hidden>
           <Box className="d-flex align-items-center">
+          <Button
+          onClick={() => {
+            const {history} = props;
+            history.push('login');
+            }
+           }
+                size="small"
+                variant="contained"
+                color="default"
+                className="mr-3">
+                Sign In 
+              </Button>
+
+              <Button
+                size="small"
+                variant="contained"
+                color="primary">
+                Sign Up
+              </Button>
             <HeaderUserbox />
             <Box className="toggle-sidebar-btn-mobile">
               <Tooltip title="Toggle Sidebar" placement="right">
@@ -118,4 +139,4 @@ const mapDispatchToProps = dispatch => ({
   setSidebarToggleMobile: enable => dispatch(setSidebarToggleMobile(enable))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
