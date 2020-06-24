@@ -48,6 +48,16 @@ export default function Login(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
+    console.log(validator);
+    if (validator.allValid()) {
+      alert('You submitted the form and stuff!');
+    } else {
+      validator.showMessages();
+      console.log('not valid form');
+      // rerender to show messages for the first time
+      // you can use the autoForceUpdate option to do this automatically`
+      // setValidator({showMessages:true})
+    }
     // const newUser = { email, password };
     // console.log('newUser');
   };
@@ -57,16 +67,18 @@ export default function Login(props) {
       ...values,
       [event.target.id]: event.target.value
     });
-    
+
     console.log(values);
   };
-
-  // let validator = new SimpleReactValidator();
+  useEffect(() => {
+    validator.purgeFields();
+  }, []);
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     // Update the document title using the browser API
-    validator.showMessages();
-    console.log(validator.fieldValid('email') )
+    // validator.showMessages();
+
+    console.log(validator.fieldValid('email'));
     console.log(validator);
   });
 
@@ -84,7 +96,6 @@ export default function Login(props) {
           <TextField
             variant="outlined"
             margin="normal"
-            required="true"
             fullWidth
             id="email"
             label="Email Address"
@@ -92,25 +103,34 @@ export default function Login(props) {
             autoComplete="email"
             autoFocus
             onChange={handleChange}
-            error={validator.errorMessages.email  }
-            helperText={validator.message('email', values.email, 'required|email')}
+            onBlur={() => validator.showMessageFor('email')}
+            error={validator.errorMessages.email}
+            helperText={validator.message(
+              'email',
+              values.email,
+              'required|email',
+              { element: false }
+            )}
           />
-          
-          
+
           <TextField
             variant="outlined"
             margin="normal"
-            required
             fullWidth
             onChange={handleChange}
-            
+            onFocus={() => validator.showMessageFor('password')}
             name="password"
             label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
-            error={validator.errorMessages.password  }
-            helperText={validator.message('password', values.password, 'required|min:6')}
+            error={validator.errorMessages.password}
+            helperText={validator.message(
+              'password',
+              values.password,
+              'required|min:6',
+              { element: false }
+            )}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

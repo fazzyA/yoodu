@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { Header, Footer } from '../../layout-components';
 
 
-const LandingPage = (props) => {
+const PublicLayout = (props) => {
   const {
     children,
     sidebarToggle,
@@ -29,7 +29,11 @@ const LandingPage = (props) => {
               'app-content-footer-fixed': footerFixed
             })}>
             <div className="app-content--inner">
-              <div className="app-content--inner__wrapper">{children}</div>
+              <div className="app-content--inner__wrapper">
+                
+                {children}
+                
+                </div>
             </div>
             <Footer />
           </div>
@@ -40,4 +44,4 @@ const LandingPage = (props) => {
   );
 };
 
-export default LandingPage;
+export default PublicLayout;
