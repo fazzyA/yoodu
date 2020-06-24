@@ -9,7 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 ///////// My imports/////////////
 import { GlobalProvider } from './context/GlobalState';
-/////////////////////////////////////////
+///////////////////////////////////////// 
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {

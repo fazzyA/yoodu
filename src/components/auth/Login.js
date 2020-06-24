@@ -16,6 +16,10 @@ import { Footer } from '../../layout-components';
 import Avatar from '@material-ui/core/Avatar';
 import projectLogo from '../../assets/images/yoodu-logo.jpeg';
 import SimpleReactValidator from 'simple-react-validator';
+import { connect } from 'react-redux';
+import loginAction from '../../Store/actions/loginAction';
+import { clearErrors } from '../../Store/actions/errorActions';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -39,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Login(props) {
+function Login(props) {
   const classes = useStyles();
   const val = useContext(GlobalContext);
 
@@ -50,7 +54,10 @@ export default function Login(props) {
     event.preventDefault();
     console.log(validator);
     if (validator.allValid()) {
-      alert('You submitted the form and stuff!');
+      props.loginAction(
+        values.email,
+        values.password
+      )
     } else {
       validator.showMessages();
       console.log('not valid form');
@@ -93,6 +100,10 @@ export default function Login(props) {
         </Typography>
 
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
+        { props.errorState.status === 'login_error' ? <Alert severity="error">
+        { props.errorState.msg}
+      </Alert>:""
+             }
           <TextField
             variant="outlined"
             margin="normal"
@@ -176,3 +187,12 @@ export default function Login(props) {
     </Container>
   );
 }
+
+const mapStateToProps = state => ({
+  ...state
+});
+const mapDispatchToProps = dispatch => ({
+  loginAction: (email, password) => dispatch(loginAction(email, password)),
+  clearErrors: () => dispatch(clearErrors())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
