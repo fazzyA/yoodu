@@ -15,6 +15,7 @@ import { GlobalContext } from '../../context/GlobalState';
 import { Footer } from '../../layout-components';
 import Avatar from '@material-ui/core/Avatar';
 import projectLogo from '../../assets/images/yoodu-logo.jpeg';
+import SimpleReactValidator from 'simple-react-validator';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -40,15 +41,33 @@ const useStyles = makeStyles(theme => ({
 
 export default function ForgotPassword(props) {
   const classes = useStyles();
-  const val = useContext(GlobalContext);
+  const [values, setValues] = useState({});
+  const [validator, setValidator] = useState(new SimpleReactValidator());
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const handleSubmit = event => {
     event.preventDefault();
-    const newUser = { email, password };
-    console.log('newUser');
+    console.log(validator);
+    if (validator.allValid()) {
+      alert('You submitted the form and stuff!');
+    } else {
+      validator.showMessages();
+      console.log('not valid form');
+      // rerender to show messages for the first time
+      // you can use the autoForceUpdate option to do this automatically`
+      // setValidator({showMessages:true})
+    }
+    // const newUser = { email, password };
+    // console.log('newUser');
+  };
+
+  const handleChange = event => {
+    setValues({
+      ...values,
+      [event.target.id]: event.target.value
+    });
+
+    console.log(values);
   };
 
   return (
@@ -60,7 +79,7 @@ export default function ForgotPassword(props) {
         <Typography component="h1" variant="h5">
           Yoodu
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -71,6 +90,16 @@ export default function ForgotPassword(props) {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={handleChange}
+            onBlur={() => validator.showMessageFor('email')}
+            error={validator.errorMessages.email}
+            helperText={validator.message(
+              'email',
+              values.email,
+              'required|email',
+              { element: false }
+            )}
+
           />
           
           <Button

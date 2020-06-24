@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment,useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-
 import { TextField } from '@material-ui/core';
+import SimpleReactValidator from 'simple-react-validator';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -16,10 +16,33 @@ const useStyles = makeStyles(theme => ({
 
 const Customer = () => {
   const classes = useStyles();
+  const [values, setValues] = useState({});
+  const [validator, setValidator] = useState(new SimpleReactValidator());
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    console.log(validator);
+    if (validator.allValid()) {
+      alert('You submitted the form and stuff!');
+    } else {
+      validator.showMessages();
+      console.log('not valid form');
+    }
+  };
+
+  const handleChange = event => {
+    setValues({
+      ...values,
+      [event.target.id]: event.target.value
+    });
+
+    console.log(values);
+  };
+
 
 return (
     <Fragment>
-      <form className={classes.form} >
+      <form className={classes.form} onSubmit={handleSubmit} >
         <TextField
           variant="outlined"
           margin="normal"
@@ -29,7 +52,16 @@ return (
           label="Email Address"
           name="email"
           autoComplete="email"
-          autoFocus
+          onChange={handleChange}
+          onBlur={() => validator.showMessageFor('email')}
+          error={validator.errorMessages.email}
+          helperText={validator.message(
+            'email',
+            values.email,
+            'required|email',
+            { element: false }
+          )}
+        autoFocus
         />
         <TextField
           variant="outlined"
@@ -40,7 +72,16 @@ return (
           label="Password"
           type="password"
           id="password"
-          autoComplete="current-password"
+          onChange={handleChange}
+          onBlur={() => validator.showMessageFor('password')}
+          error={validator.errorMessages.password}
+          helperText={validator.message(
+            'password',
+            values.password,
+            'required|[password]',
+            { element: false }
+          )}
+        autoComplete="current-password"
         />
         <TextField
           variant="outlined"
@@ -51,8 +92,16 @@ return (
           label="Confirm Password"
           type="cpassword"
           id="cpassword"
-          autoComplete="current-password"
-        />
+          onChange={handleChange}
+          onBlur={() => validator.showMessageFor('cpassword')}
+          error={validator.errorMessages.cpassword}
+          helperText={validator.message(
+            'cpassword',
+            values.password,
+            'required|[cpassword]',
+            { element: false }
+          )}
+      />
         <Button
           type="submit"
           fullWidth
