@@ -79,7 +79,7 @@ export default function ForgotPassword(props) {
         <Typography component="h1" variant="h5">
           Yoodu
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"

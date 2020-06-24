@@ -41,7 +41,7 @@ const Restaurant = () => {
 
   return (
     <Fragment>
-      <form className={classes.form}  onSubmit={handleSubmit} noValidate>
+      <form className={classes.form}  onSubmit={handleSubmit}>
         <TextField
           fullWidth
           required
@@ -147,7 +147,7 @@ const Restaurant = () => {
           helperText={validator.message(
             'password',
             values.password,
-            'required|password',
+            'required|min:6',
             { element: false }
           )}
       />

@@ -75,12 +75,8 @@ return (
           onChange={handleChange}
           onBlur={() => validator.showMessageFor('password')}
           error={validator.errorMessages.password}
-          helperText={validator.message(
-            'password',
-            values.password,
-            'required|[password]',
-            { element: false }
-          )}
+          helperText={validator.message('password', 
+          values.password, 'required|min:6')}
         autoComplete="current-password"
         />
         <TextField
@@ -98,7 +94,7 @@ return (
           helperText={validator.message(
             'cpassword',
             values.password,
-            'required|[cpassword]',
+            'required|min:6',
             { element: false }
           )}
       />
