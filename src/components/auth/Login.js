@@ -16,6 +16,7 @@ import { Footer } from '../../layout-components';
 import Avatar from '@material-ui/core/Avatar';
 import projectLogo from '../../assets/images/yoodu-logo.jpeg';
 import SimpleReactValidator from 'simple-react-validator';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles(theme => ({
   paper: {
