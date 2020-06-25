@@ -54,14 +54,12 @@ function Login(props) {
   const [values, setValues] = useState({});
   const [validator, setValidator] = useState(new SimpleReactValidator());
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     console.log(validator);
     if (validator.allValid()) {
-      props.loginAction(
-        values.email,
-        values.password
-      )
+      await props.loginAction(values.email, values.password);
+     
     } else {
       validator.showMessages();
       console.log('not valid form');
@@ -103,13 +101,15 @@ function Login(props) {
           Yoodu
         </Typography>
 
-        <form className={classes.form} onSubmit={handleSubmit} noValidate>
-        { props.errorState.status === 'login_error' ? <Alert severity="error">
-        { props.errorState.msg}
-      </Alert>:""
-             }
+        <form className={classes.form} onSubmit={handleSubmit}>
+          {props.errorState.status === 'login_error' ? (
+            <Alert severity="error">{props.errorState.msg}</Alert>
+          ) : (
+            ''
+          )}
           <TextField
             variant="outlined"
+            required
             margin="normal"
             fullWidth
             id="email"
@@ -129,6 +129,7 @@ function Login(props) {
           />
 
           <TextField
+            required
             variant="outlined"
             margin="normal"
             fullWidth
@@ -198,5 +199,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loginAction: (email, password) => dispatch(loginAction(email, password)),
   clearErrors: () => dispatch(clearErrors())
+
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

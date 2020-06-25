@@ -11,7 +11,7 @@ export default function configureStore() {
     {
       authState: {
         loading: true,
-        currentUser: { uid: null, displayName: null, role: null, email: null }
+        currentUser: { uid: null, role: null, email: null }
       }
     },
     composeEnhancers(applyMiddleware(reduxThunk))
