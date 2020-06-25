@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 import loginAction from '../../Store/actions/loginAction';
 import { clearErrors } from '../../Store/actions/errorActions';
 import Alert from '@material-ui/lab/Alert';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -55,7 +56,6 @@ function Login(props) {
     console.log(validator);
     if (validator.allValid()) {
       await props.loginAction(values.email, values.password);
-     
     } else {
       validator.showMessages();
       console.log('not valid form');
@@ -82,111 +82,119 @@ function Login(props) {
   useEffect(() => {
     // Update the document title using the browser API
     // validator.showMessages();
-
+    console.log(props.authState.currentUser);
     console.log(validator.fieldValid('email'));
     console.log(validator);
   });
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <img className={classes.avatar} alt="Yoodu" src={projectLogo} />
+  if (props.authState.loggedIn) {
+    // console.log("#############inside############")
+    if (props.authState.currentUser.role === 'customer')
+      return <Redirect to="/home" />;
+    else if (props.authState.currentUser.role === 'restaurant')
+      return <Redirect to="/DashboardDefault" />;
+    else return <Redirect to="/signup" />;
+  } else
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <img className={classes.avatar} alt="Yoodu" src={projectLogo} />
 
-        <Typography component="h1" variant="h5">
-          Yoodu
-        </Typography>
+          <Typography component="h1" variant="h5">
+            Yoodu
+          </Typography>
 
-        <form className={classes.form} onSubmit={handleSubmit}>
-          {props.errorState.status === 'login_error' ? (
-            <Alert severity="error">{props.errorState.msg}</Alert>
-          ) : (
-            ''
-          )}
-          <TextField
-            variant="outlined"
-            required
-            margin="normal"
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={handleChange}
-            onBlur={() => validator.showMessageFor('email')}
-            error={validator.errorMessages.email}
-            helperText={validator.message(
-              'email',
-              values.email,
-              'required|email',
-              { element: false }
+          <form className={classes.form} onSubmit={handleSubmit}>
+            {props.errorState.status === 'login_error' ? (
+              <Alert severity="error">{props.errorState.msg}</Alert>
+            ) : (
+              ''
             )}
-          />
+            <TextField
+              variant="outlined"
+              required
+              margin="normal"
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange={handleChange}
+              onBlur={() => validator.showMessageFor('email')}
+              error={validator.errorMessages.email}
+              helperText={validator.message(
+                'email',
+                values.email,
+                'required|email',
+                { element: false }
+              )}
+            />
 
-          <TextField
-            required
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            onChange={handleChange}
-            onFocus={() => validator.showMessageFor('password')}
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            error={validator.errorMessages.password}
-            helperText={validator.message(
-              'password',
-              values.password,
-              'required|min:6',
-              { element: false }
-            )}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}>
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link
-                onClick={() => {
-                  const { history } = props;
-                  history.push('forgot');
-                }}
-                component="button"
-                variant="body2">
-                Forgot password?
-              </Link>
+            <TextField
+              required
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              onChange={handleChange}
+              onFocus={() => validator.showMessageFor('password')}
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              error={validator.errorMessages.password}
+              helperText={validator.message(
+                'password',
+                values.password,
+                'required|min:6',
+                { element: false }
+              )}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}>
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link
+                  onClick={() => {
+                    const { history } = props;
+                    history.push('forgot');
+                  }}
+                  component="button"
+                  variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link
+                  onClick={() => {
+                    const { history } = props;
+                    history.push('signup');
+                  }}
+                  component="button"
+                  variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link
-                onClick={() => {
-                  const { history } = props;
-                  history.push('signup');
-                }}
-                component="button"
-                variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Footer />
-      </Box>
-    </Container>
-  );
+          </form>
+        </div>
+        <Box mt={8}>
+          <Footer />
+        </Box>
+      </Container>
+    );
 }
 
 const mapStateToProps = state => ({
@@ -195,6 +203,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loginAction: (email, password) => dispatch(loginAction(email, password)),
   clearErrors: () => dispatch(clearErrors())
-
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
