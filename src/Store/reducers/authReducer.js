@@ -7,7 +7,8 @@ const initialState = {
 export default (state = initialState, action) => {
   let loading = state.loading;
   if (action.payload === true) {
-    loading = false;
+    console.log("playload "+ action.payload)
+    state.loading = false;
   }
   switch (action.type) {
     // in both cases, we want to tell our app,
@@ -18,16 +19,17 @@ export default (state = initialState, action) => {
       return {
         // keep old state
         ...state,
-
+        loading : false,
         // add true/false if the user is or not logged in
-        loggedIn: action.payload,
-        loaded: action.payload === true ? true : false
+        currentUser : action.payload,
+        loggedIn : true
       };
     case 'login':
       // console.log("login is ", action.payload);
       return {
         // keep old state
         ...state,
+        
         // add true/false if the user is or not logged in
         loggedIn: action.payload,
         loaded: action.payload === true ? true : false

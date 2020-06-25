@@ -14,12 +14,15 @@ let currentuser = firebase
       // if the login was succesful, then
       // we dispatch to our reducers the fact that
       // login was succesful by sending true
+      console.log(user)
+      // user.getIdTokenResult();
       dispatch({ type: "login", payload: true });
       dispatch({ type: 'clearError'});
     })
     // if the login was not succesful we can catch the erros here
 
     .catch(function(error) {
+      console.log("inside error")
       // if we have any erros, we'll throw an allert with that error
       dispatch({ type: 'setError' , payload : {msg : error.message, status : "login_error" , id: error.code}});
       console.log(error)
