@@ -12,7 +12,7 @@ import SidebarMenu from '../../layout-components/SidebarMenu';
 
 import navItems from './navItems';
 
-import { setSidebarToggleMobile } from '../../reducers/ThemeOptions';
+import { setSidebarToggleMobile } from '../../Store/ThemeOptions';
 
 const Sidebar = props => {
   const {

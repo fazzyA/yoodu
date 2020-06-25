@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 import projectLogo from '../../assets/images/yoodu-logo.jpeg';
 
-import { setSidebarToggleMobile } from '../../reducers/ThemeOptions';
+import { setSidebarToggleMobile } from '../../Store/ThemeOptions';
 
 import MenuOpenRoundedIcon from '@material-ui/icons/MenuOpenRounded';
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';

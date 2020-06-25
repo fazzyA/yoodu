@@ -15,7 +15,7 @@ import {
 
 import { connect } from 'react-redux';
 
-import { setSidebarToggleMobile } from '../../reducers/ThemeOptions';
+import { setSidebarToggleMobile } from '../../Store/ThemeOptions';
 import projectLogo from '../../assets/images/yoodu-logo.jpeg';
 
 import HeaderLogo from '../../layout-components/HeaderLogo';
