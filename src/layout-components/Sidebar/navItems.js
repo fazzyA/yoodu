@@ -46,27 +46,14 @@ export default [
         {
           "label": "Home",
           "description": "Wide selection of buttons that feature different styles for backgrounds, borders and hover options!",
-          "to": "/home"
+          "to": "/DashboardDefault"
           },
  
         {
-          "label": "Login",
-          "description": "This is a Login page",
-          "to": "/login"
-        },
-        {
-          "label": "Dashboard",
-          "to": "/DashboardDefault"          
-        },
-        {
-          "label": "Restaurant",
-          "to": "/restaurant"          
-        },
-        {
-          "label": "Category",
-          "to": "/category"          
+          "label": "Menu",
+          "description": "This is a Menu Category page",
+          "to": "/category"
         }
-
 ]`,
       (key, value) => {
         if (key === 'icon') {

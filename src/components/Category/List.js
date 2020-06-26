@@ -1,28 +1,31 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import MaterialTable from 'material-table';
-import { TextField,  FormControlLabel, Checkbox  } from '@material-ui/core';
 
- const Category = () => {
+export default function MaterialTableDemo() {
   const [state, setState] = React.useState({
     columns: [
       { title: 'Name', field: 'name' },
-      { title: 'Special', field: 'special' },
-      { title: 'Hide image/description', field: 'Hide' },
-          ],
-    data: [
-      { name: 'Specials', special: <Checkbox />, Hide: <Checkbox /> },
+      { title: 'Surname', field: 'surname' },
+      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
       {
-        name: 'Salad',
-        special:<Checkbox />,
-        Hide: <Checkbox />,
+        title: 'Birth Place',
+        field: 'birthCity',
+        lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
+      },
+    ],
+    data: [
+      { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+      {
+        name: 'Zerya Betül',
+        surname: 'Baran',
+        birthYear: 2017,
+        birthCity: 34,
       },
     ],
   });
 
-    return (
-        <Fragment>
-        <form autoComplete="off">
-        <MaterialTable
+  return (
+    <MaterialTable
       title="Editable Example"
       columns={state.columns}
       data={state.data}
@@ -64,40 +67,5 @@ import { TextField,  FormControlLabel, Checkbox  } from '@material-ui/core';
           }),
       }}
     />
-
-        {/* <div style={{width:'50%'}}>
-          <TextField
-            fullWidth
-            className="m-3"
-            id="name"
-            label="Category Name"
-            variant="outlined"
-            defaultValue=""
-          />
-          <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked
-                      value="special"
-                    />
-                  }
-                  label="Special"
-                />
-                <FormControlLabel
-                control={
-                  <Checkbox
-                    checked
-                    value="hideimage"
-                  />
-                }
-                label="Hide Image/Description"
-              />
-        </div> */}
-        
-      </form>
-
-            
-        </Fragment>
-    )
+  );
 }
-export default Category;
