@@ -13,6 +13,10 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import pic from '../../images/salad.jpg'
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,6 +60,11 @@ const useStyles = makeStyles((theme) => ({
     root2: {
       minWidth: 275,
     },
+    root3: {
+      flexGrow: 1,
+      width: '70%',
+      display: 'inline-block',
+    },
     bullet: {
       display: 'inline-block',
       margin: '0 2px',
@@ -67,7 +76,10 @@ const useStyles = makeStyles((theme) => ({
     pos: {
       marginBottom: 12,
     }
-    ,
+    , media: {
+      height: 140,
+      width: 150
+    },
     // actionButton:{
     //   color: 'blue',
 
@@ -124,7 +136,34 @@ creamy mustard & soya lime dressing
     </Card>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+      <Card className={classes.root3}>
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={pic}
+          title="salad"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+          The Howling Wolf
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+          Lightly Seared beef sirloin, avo, roasted beetroot
+& butternut, spring onion, julieen slaw with a
+creamy mustard & soya lime dressing
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary">
+          Share
+        </Button>
+        <Button size="small" color="primary">
+          Learn More
+        </Button>
+      </CardActions>
+    </Card>
+
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
