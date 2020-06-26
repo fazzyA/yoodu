@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DashboardDefault = lazy(() => import('./example-pages/DashboardDefault'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
-const Home = lazy(()=> import('./components/Home'));
+const Home = lazy(()=> import('./components/Customer/Home'));
 
 const Routes = (props) => {
   const location = useLocation();
