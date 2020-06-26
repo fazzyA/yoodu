@@ -1,4 +1,4 @@
-import {firebase} from "firebaseConfig";
+import { firebase } from '../../config/firebaseConfig';
 
 const logoutAction = () => async dispatch => {
   // firebase offers us this function signInWithEmailAndPassword

@@ -88,6 +88,8 @@ const Header = props => {
             </Box>
           </Hidden>
           <Box className="d-flex align-items-center">
+          {(props.authState === "")?
+        <>  
           <Button
           onClick={() => {
             const {history} = props;
@@ -112,7 +114,11 @@ const Header = props => {
                 color="primary">
                 Sign Up
               </Button>
+              </>
+            :
+            <>
             <HeaderUserbox />
+            
             <Box className="toggle-sidebar-btn-mobile">
               <Tooltip title="Toggle Sidebar" placement="right">
                 <IconButton
@@ -127,6 +133,8 @@ const Header = props => {
                 </IconButton>
               </Tooltip>
             </Box>
+            </>
+          }
           </Box>
         </Box>
       </AppBar>

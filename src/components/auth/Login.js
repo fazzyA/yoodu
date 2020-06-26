@@ -83,11 +83,14 @@ function Login(props) {
     // Update the document title using the browser API
     // validator.showMessages();
     console.log(props.authState.currentUser);
-    console.log(validator.fieldValid('email'));
-    console.log(validator);
+    // console.log(validator.fieldValid('email'));
+    // console.log(validator);
   });
 
-  if (props.authState.loggedIn) {
+  if (
+    props.authState.loggedIn &&
+    props.authState.currentUser !== undefined
+  ) {
     // console.log("#############inside############")
     if (props.authState.currentUser.role === 'customer')
       return <Redirect to="/home" />;

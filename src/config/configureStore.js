@@ -11,6 +11,7 @@ export default function configureStore() {
     {
       authState: {
         loading: true,
+        loggedIn: false,
         currentUser: { uid: null, role: null, email: null }
       }
     },

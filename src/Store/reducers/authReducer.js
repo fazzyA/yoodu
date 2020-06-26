@@ -49,6 +49,7 @@ export default (state = initialState, action) => {
       return {
         // keep old state
         ...state,
+        loading: false,
         // add true/false if the user is or not logged in
         loggedIn: action.payload.loading,
         loaded: action.payload.loading === true ? true : false,

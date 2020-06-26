@@ -17,7 +17,14 @@ const PublicLayout = (props) => {
     contentBackground
   } = props;
 
-  return (
+  
+  if (
+    !props.authState.loggedIn 
+  ) {
+    // console.log("#############inside############")
+    return <Redirect to="/login" />;
+  } else
+return (
        <Fragment>
       <div className={clsx('app-wrapper', contentBackground)}>
         <Header />
@@ -47,4 +54,10 @@ const PublicLayout = (props) => {
   );
 };
 
-export default PublicLayout;
+const mapStateToProps = state => ({
+  ...state
+});
+
+export default 
+  connect(mapStateToProps, null)(PublicLayout)
+;

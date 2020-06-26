@@ -1,4 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { connect } from 'react-redux';
+import logoutAction from '../../Store/actions/logoutAction';
+import { clearErrors } from '../../Store/actions/errorActions';
+import Alert from '@material-ui/lab/Alert';
+import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -14,8 +20,11 @@ import {
 } from '@material-ui/core';
 
 import avatar5 from '../../assets/images/avatars/avatar5.jpg';
-export default function HeaderUserbox() {
+import withData from '../../components/WithData';
+
+function HeaderUserbox(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState(null);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -24,7 +33,20 @@ export default function HeaderUserbox() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  // let { currentUser } = props.authState.currentUser;
 
+  useEffect(() => {
+    console.log(props.authState);
+    setCurrentUser(props.authState.currentUser)  
+    
+  });
+  // const { currentUser } = props.authState.currentUser;
+
+  if (props.authState.currentUser === undefined) {
+    console.log('#############inside############');
+    return <></>;
+  }
+  else
   return (
     <Fragment>
       <Button
@@ -32,11 +54,15 @@ export default function HeaderUserbox() {
         onClick={handleClick}
         className="text-capitalize px-3 text-left btn-inverse d-flex align-items-center">
         <Box>
-          <Avatar sizes="44" alt="Emma Taylor" src={avatar5} />
+          <Avatar alt="Remy Sharp" className="bg-malibu-beach">
+         
+          </Avatar>
         </Box>
         <div className="d-none d-xl-block pl-3">
-          <div className="font-weight-bold pt-2 line-height-1">User Name</div>
-          <span className="text-white-50">Senior React Developer</span>
+          <div className="font-weight-bold pt-2 line-height-1">
+            {currentUser? currentUser.email : ""}
+          </div>
+          <span className="text-white-50">{currentUser? currentUser.email : ""}</span>
         </div>
         <span className="pl-1 pl-xl-3">
           <FontAwesomeIcon icon={['fas', 'angle-down']} className="opacity-5" />
@@ -60,30 +86,34 @@ export default function HeaderUserbox() {
         className="ml-2">
         <div className="dropdown-menu-right dropdown-menu-lg overflow-hidden p-0">
           <List className="text-left bg-transparent d-flex align-items-center flex-column pt-0">
-            <Box>
-              <Avatar sizes="44" alt="Emma Taylor" src={avatar5} />
-            </Box>
+            {/* <Box>
+            <Avatar alt="Remy Sharp">
+              R
+              </Avatar>
+            </Box> */}
             <div className="pl-3  pr-3">
               <div className="font-weight-bold text-center pt-2 line-height-1">
-                User Name
+              {currentUser? currentUser.email : ""}
               </div>
               <span className="text-black-50 text-center">
-                Senior React Developer
+              {currentUser? currentUser.role : ""}
               </span>
             </div>
             <Divider className="w-100 mt-2" />
             <ListItem button>My Account</ListItem>
-            <ListItem button>Profile settings</ListItem>
-            <ListItem button>Active tasks</ListItem>
+            {/* <ListItem button>Logout</ListItem> */}
+            {/* <ListItem button>Active tasks</ListItem> */}
             <Divider className="w-100" />
             <ListItem className="d-block rounded-bottom px-3 pt-3 pb-0 text-center">
-              <Tooltip arrow title="Twitter">
-                <Button color="default" className="text-twitter">
-                  <span className="btn-wrapper--icon">
-                    <FontAwesomeIcon icon={['fab', 'twitter']} />
-                  </span>
-                </Button>
-              </Tooltip>
+              {/* <Tooltip arrow title="Twitter"> */}
+              <Button color="default" className="text-twitter" onClick={()=>{
+                props.logoutAction();
+                
+              }
+                }>
+                <span className="btn-wrapper--icon">Sign Out</span>
+              </Button>
+              {/* </Tooltip> */}
             </ListItem>
           </List>
         </div>
@@ -91,3 +121,14 @@ export default function HeaderUserbox() {
     </Fragment>
   );
 }
+
+const mapStateToProps = state => ({
+  ...state
+});
+const mapDispatchToProps = dispatch => ({
+  logoutAction: () => dispatch(logoutAction()),
+  clearErrors: () => dispatch(clearErrors())
+});
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(HeaderUserbox)
+);

@@ -18,9 +18,10 @@ const authAction = () => async dispatch => {
           type: 'authenticate',
           payload: { loading: true, currentUser: currUser }
         });
+        dispatch({ type: 'clearError' });
       });
       // dispatch({ type: "authenticate", payload: {loading:true, currentUser : user} });
-      dispatch({ type: 'clearError' });
+      
     } else {
       dispatch({ type: 'authenticate', payload: false });
       console.log('user not found');
