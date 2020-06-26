@@ -40,6 +40,10 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  theading:{
+      fontSize:18,
+      fontWeight:'bold'
+  }
 });
 
 export default function DetailDescription() {
@@ -49,9 +53,9 @@ export default function DetailDescription() {
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableBody>
-        <StyledTableCell component="th" scope="row">
-                Description
-              </StyledTableCell>
+        <TableRow>
+            <TableCell className={classes.theading}>Description</TableCell>
+          </TableRow>
           { rows.map((row) => (
             <StyledTableRow key={row.name}>
               <StyledTableCell component="th" scope="row">
