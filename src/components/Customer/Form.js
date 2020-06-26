@@ -67,7 +67,10 @@ const Customer = props => {
     console.log(values);
   };
 
-  if (props.authState.loggedIn) {
+  if (
+    props.authState.loggedIn &&
+    props.authState.currentUser.role === 'customer'
+  ) {
     // console.log("#############inside############")
     return <Redirect to="/home" />;
   } else
