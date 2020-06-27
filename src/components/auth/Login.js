@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import { GlobalContext } from '../../context/GlobalState';
 import { Footer } from '../../layout-components';
 import Avatar from '@material-ui/core/Avatar';
-import projectLogo from '../../assets/images/yoodu-logo.jpeg';
+import projectLogo from '../../assets/images/logo.png';
 import SimpleReactValidator from 'simple-react-validator';
 import { connect } from 'react-redux';
 import loginAction from '../../Store/actions/loginAction';
@@ -92,11 +92,9 @@ function Login(props) {
     props.authState.currentUser !== undefined
   ) {
     // console.log("#############inside############")
-    if (props.authState.currentUser.role === 'customer')
-      return <Redirect to="/home" />;
-    else if (props.authState.currentUser.role === 'restaurant')
+    if (props.authState.currentUser.role === 'restaurant')
       return <Redirect to="/DashboardDefault" />;
-    else return <Redirect to="/signup" />;
+    else return <Redirect to="/home" />;
   } else
     return (
       <Container component="main" maxWidth="xs">
@@ -104,9 +102,9 @@ function Login(props) {
         <div className={classes.paper}>
           <img className={classes.avatar} alt="Yoodu" src={projectLogo} />
 
-          <Typography component="h1" variant="h5">
+          {/* <Typography component="h1" variant="h5">
             Yoodu
-          </Typography>
+          </Typography> */}
 
           <form className={classes.form} onSubmit={handleSubmit}>
             {props.errorState.status === 'login_error' ? (

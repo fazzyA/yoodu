@@ -55,7 +55,7 @@ const Customer = props => {
     } else {
       validator.showMessages();
       console.log('not valid form');
-    }
+    } 
   };
 
   const handleChange = event => {

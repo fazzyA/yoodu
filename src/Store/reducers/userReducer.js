@@ -23,7 +23,7 @@ export default (state=initialState, action) => {
               ...state,
               loaded:true,
               // add true/false if the user is or not logged in
-              userDetail : action.payload,
+              detail : action.payload,
               users:action.payload.users
           };
 

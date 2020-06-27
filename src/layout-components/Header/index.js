@@ -16,7 +16,7 @@ import {
 import { connect } from 'react-redux';
 
 import { setSidebarToggleMobile } from '../../Store/ThemeOptions';
-import projectLogo from '../../assets/images/yoodu-logo.jpeg';
+import projectLogo from '../../assets/images/logo.png';
 
 import HeaderLogo from '../../layout-components/HeaderLogo';
 import HeaderUserbox from '../../layout-components/HeaderUserbox';
@@ -88,6 +88,7 @@ const Header = props => {
             </Box>
           </Hidden>
           <Box className="d-flex align-items-center">
+            
           {(props.authState === "")?
         <>  
           <Button

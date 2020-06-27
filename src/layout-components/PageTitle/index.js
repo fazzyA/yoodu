@@ -13,13 +13,14 @@ import ShareIcon from '@material-ui/icons/Share';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import ListIcon from '@material-ui/icons/List';
 
 const actions = [
-  { icon: <FileCopyIcon />, name: 'Copy' },
+  { icon: <EditIcon />, name: 'Edit' },
   { icon: <SaveIcon />, name: 'Save' },
   { icon: <PrintIcon />, name: 'Print' },
-  { icon: <ShareIcon />, name: 'Share' },
-  { icon: <FavoriteIcon />, name: 'Like' }
+  // { icon: <ShareIcon />, name: 'Share' },
+  // { icon: <FavoriteIcon />, name: 'Like' }
 ];
 
 function PageTitle(props) {
@@ -30,6 +31,13 @@ function PageTitle(props) {
   };
 
   const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClick = (action) => {
+    console.log(action)
+    if(action === "Edit")
+       props.editClicked();
     setOpen(false);
   };
 
@@ -50,17 +58,18 @@ function PageTitle(props) {
           <div className="speedial-wrapper">
             <SpeedDial
               ariaLabel="SpeedDial menu"
-              icon={<SpeedDialIcon openIcon={<EditIcon />} />}
+              icon={<SpeedDialIcon openIcon={<ListIcon />} />}
               onClose={handleClose}
               onOpen={handleOpen}
               direction="left"
               open={open}>
               {actions.map(action => (
                 <SpeedDialAction
+                  id={action.name}
                   key={action.name}
                   icon={action.icon}
                   tooltipTitle={action.name}
-                  onClick={handleClose}
+                  onClick={() => handleClick(action.name)}
                 />
               ))}
             </SpeedDial>

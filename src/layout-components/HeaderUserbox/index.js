@@ -43,7 +43,7 @@ function HeaderUserbox(props) {
   // const { currentUser } = props.authState.currentUser;
 
   if (props.authState.currentUser === undefined) {
-    console.log('#############inside############');
+  console.log('#############inside############');
     return <></>;
   }
   else
@@ -54,7 +54,7 @@ function HeaderUserbox(props) {
         onClick={handleClick}
         className="text-capitalize px-3 text-left btn-inverse d-flex align-items-center">
         <Box>
-          <Avatar alt="Remy Sharp" className="bg-malibu-beach">
+          <Avatar alt="User" >
          
           </Avatar>
         </Box>
@@ -100,7 +100,7 @@ function HeaderUserbox(props) {
               </span>
             </div>
             <Divider className="w-100 mt-2" />
-            <ListItem button>My Account</ListItem>
+            <ListItem button>Reset Password</ListItem>
             {/* <ListItem button>Logout</ListItem> */}
             {/* <ListItem button>Active tasks</ListItem> */}
             <Divider className="w-100" />

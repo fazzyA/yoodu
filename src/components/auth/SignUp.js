@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import { GlobalContext } from '../../context/GlobalState';
 import { Footer } from '../../layout-components';
 import Avatar from '@material-ui/core/Avatar';
-import projectLogo from '../../assets/images/yoodu-logo.jpeg';
+import projectLogo from '../../assets/images/logo.png';
 import TabsBasic from '../../example-components/Tabs/TabsBasic';
 import Restaurant from '../../components/Restaurant/RestaurantForm';
 import Customer from '../../components/Customer/Form';
@@ -60,9 +60,9 @@ export default function SignUp() {
       <div className={classes.paper}>
         <img className={classes.avatar} alt="Yoodu" src={projectLogo} />
 
-        <Typography component="h1" variant="h5">
+        {/* <Typography component="h1" variant="h5">
           Yoodu
-        </Typography>
+        </Typography> */}
 
         <TabsBasic>
           <Customer />

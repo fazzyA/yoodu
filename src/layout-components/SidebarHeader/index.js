@@ -7,7 +7,7 @@ import { IconButton, Box, Tooltip } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 
-import projectLogo from '../../assets/images/yoodu-logo.jpeg';
+import projectLogo from '../../assets/images/logo.png';
 
 import { setSidebarToggleMobile } from '../../Store/ThemeOptions';
 

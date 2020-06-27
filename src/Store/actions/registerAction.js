@@ -27,11 +27,12 @@ const registerAction = values => async dispatch => {
 
     delete values.password;
     delete values.cpassword;
-    await firestore.collection('user-details').add({
+    
+    await firestore.collection(values.role).add({
       userId: user.user.uid,
-
-      ...values
+    ...values
     });
+    
     console.log(user);
     await dispatch({
       type: 'register',

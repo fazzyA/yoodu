@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
 
 import { Sidebar, Header, Footer } from '../../layout-components';
 
@@ -15,6 +16,12 @@ const LeftSidebar = props => {
     contentBackground
   } = props;
 
+  if (
+    !props.authState.loggedIn 
+  ) {
+    // console.log("#############inside############")
+    return <Redirect to="/login" />;
+  } else
   return (
     <Fragment>
       <div className={clsx('app-wrapper', contentBackground)}>
@@ -55,8 +62,9 @@ const mapStateToProps = state => ({
   headerDrawerToggle: state.ThemeOptions.headerDrawerToggle,
 
   footerFixed: state.ThemeOptions.footerFixed,
-
+  ...state,
   contentBackground: state.ThemeOptions.contentBackground
+  
 });
 
 export default connect(mapStateToProps)(LeftSidebar);

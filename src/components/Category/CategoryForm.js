@@ -1,103 +1,70 @@
-import React, { Fragment } from 'react';
-import MaterialTable from 'material-table';
-import { TextField,  FormControlLabel, Checkbox  } from '@material-ui/core';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import {
+  SortableContainer,
+  SortableElement,
+  SortableHandle
+} from "react-sortable-hoc";
+import arrayMove from "array-move";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import DragHandleIcon from "@material-ui/icons/DragHandle";
+import PageTitle from '../../layout-components/PageTitle';
 
- const Category = () => {
-  const [state, setState] = React.useState({
-    columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'Special', field: 'special' },
-      { title: 'Hide image/description', field: 'Hide' },
-          ],
-    data: [
-      { name: 'Specials', special: <Checkbox />, Hide: <Checkbox /> },
-      {
-        name: 'Salad',
-        special:<Checkbox />,
-        Hide: <Checkbox />,
-      },
-    ],
-  });
+const DragHandle = SortableHandle(() => (
+  <ListItemIcon>
+    <DragHandleIcon />
+  </ListItemIcon>
+));
 
-    return (
-        <Fragment>
-        <form autoComplete="off">
-        <MaterialTable
-      title="Editable Example"
-      columns={state.columns}
-      data={state.data}
-      editable={{
-        onRowAdd: (newData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              if (oldData) {
-                setState((prevState) => {
-                  const data = [...prevState.data];
-                  data[data.indexOf(oldData)] = newData;
-                  return { ...prevState, data };
-                });
-              }
-            }, 600);
-          }),
-        onRowDelete: (oldData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-      }}
+const SortableItem = SortableElement(({ text }) => (
+  <ListItem ContainerComponent="div">
+    {/* <ListItemSecondaryAction> */}
+      <DragHandle />
+    {/* </ListItemSecondaryAction> */}
+    <ListItemText primary={text} />
+
+  </ListItem>
+));
+
+const SortableListContainer = SortableContainer(({ items }) => (
+  <List component="div">
+    {items.map(({ id, text }, index) => (
+      <SortableItem key={id} index={index} text={text} />
+    ))}
+  </List>
+));
+
+const SortableList = () => {
+  const [items, setItems] = useState([
+    { id: "1", text: "Item 1" },
+    { id: "2", text: "Item 2" },
+    { id: "3", text: "Item 3" },
+    { id: "4", text: "Item 4" }
+  ]);
+
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    setItems(items => arrayMove(items, oldIndex, newIndex));
+  };
+
+  console.log(items)
+  return (
+    <React.Fragment>
+    <PageTitle
+        titleHeading="Menu"
+        titleDescription="Categories Detail"
+      />
+    <SortableListContainer
+      items={items}
+      onSortEnd={onSortEnd}
+      useDragHandle={true}
+      lockAxis="y"
     />
+    </React.Fragment>
+  );
+};
 
-        {/* <div style={{width:'50%'}}>
-          <TextField
-            fullWidth
-            className="m-3"
-            id="name"
-            label="Category Name"
-            variant="outlined"
-            defaultValue=""
-          />
-          <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked
-                      value="special"
-                    />
-                  }
-                  label="Special"
-                />
-                <FormControlLabel
-                control={
-                  <Checkbox
-                    checked
-                    value="hideimage"
-                  />
-                }
-                label="Hide Image/Description"
-              />
-        </div> */}
-        
-      </form>
-
-            
-        </Fragment>
-    )
-}
-export default Category;
+export default SortableList;

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { IconButton, Box } from '@material-ui/core';
 
-import projectLogo from '../../assets/images/yoodu-logo.jpeg';
+import projectLogo from '../../assets/images/logo.png';
 
 const HeaderLogo = props => {
   return (
