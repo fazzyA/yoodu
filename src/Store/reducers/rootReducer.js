@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import authReducer from "Store/authReducer";
 import statCardReducer from "Store/statCardReducer";
 import errorReducer from "./errorReducer";
-import jobReducer from  './jobReducer';
+import jobReducer from  './restaurantReducer';
 import userReducer from "./userReducer";
 export default combineReducers({
   // the authReducer will work only with authState

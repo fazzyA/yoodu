@@ -2,33 +2,33 @@ import { firestore, firebase } from '../../config/firebaseConfig';
 
 // get user details
 export const getUser = uid => async (dispatch, getState) => {
-  console.log(
-    '****************************************************************************'
-  );
+  // console.log(
+  //   '****************************************************************************'
+  // );
   const state = getState();
   
   var user = firebase.auth().currentUser;
-  console.log(user);
-  console.log(user.uid);
+  // console.log(user);
+  // console.log(user.uid);
   const { uid} = user;
   const adminck = await user.getIdTokenResult();
-  console.log(adminck.claims.role);
+  // console.log(adminck.claims.role);
   const role = adminck.claims.role;
 
   if (user ) {
-    console.log("iiiiiiiiiiiiiiiiiiiiiiiiii");
+    // console.log("iiiiiiiiiiiiiiiiiiiiiiiiii");
     var users = [];
     let userRef = firestore.collection(role).where('userId', '==', uid);
 
     try {
       const ausers = await userRef.get();
-      console.log('()()()()()()()()()()()()()()()');
-      console.log(ausers);
+      // console.log('()()()()()()()()()()()()()()()');
+      // console.log(ausers);
       ausers.forEach(usr => {
         console.log(usr.data());
-        users.push({ ...usr.data() });
+        users.push({ ...usr.data(), id: usr.id });
       });
-      console.log(users);
+      // console.log(users);
       dispatch({ type: 'getUser', payload: { ...users[0] } });
       //{...users, userDetail : users.filter((user)=>user.userId===uid ) } });
       dispatch({ type: 'clearError' });
@@ -48,4 +48,47 @@ export const getUser = uid => async (dispatch, getState) => {
     console.log('error');
   }
   // });
+};
+
+// Update new restaurant
+export const updateRestaurant = restaurant => async dispatch => {
+  // console.log(user)
+  //restaurant.userId = user.uid
+  var user = firebase.auth().currentUser;
+  if (user) {
+    console.log(user);
+    // restaurant.userId = user.uid;
+    //  restaurant.status = "open"
+    //  restaurant.createdAt = Date.now()
+    console.log(restaurant);
+    firestore
+      .collection('restaurant')
+      .doc(restaurant.id)
+      .set(restaurant)
+      .then(res => {
+        console.log(res);
+        dispatch({ type: 'UpdateRestaurant', payload: { restaurant } });
+        dispatch({ type: 'clearError' });
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({
+          type: 'setError',
+          payload: {
+            msg: err.message,
+            status: 'error',
+            id: err.code
+          }
+        });
+      });
+  } // user is undefined if no user signed in
+  else
+    dispatch({
+      type: 'setError',
+      payload: {
+        msg: '',
+        status: 'error',
+        id: 77889
+      }
+    });
 };

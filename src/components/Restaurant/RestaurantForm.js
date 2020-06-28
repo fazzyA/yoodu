@@ -159,6 +159,7 @@ const Restaurant = props => {
             required
             margin="normal"
             id="password"
+            type="password"
             label="Password"
             defaultValue=""
             helperText=""

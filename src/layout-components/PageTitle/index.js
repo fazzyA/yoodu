@@ -14,11 +14,12 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import ListIcon from '@material-ui/icons/List';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 const actions = [
   { icon: <EditIcon />, name: 'Edit' },
-  { icon: <SaveIcon />, name: 'Save' },
-  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <AssignmentIcon />, name: 'View' },
+  { icon: <PrintIcon />, name: 'Print' }
   // { icon: <ShareIcon />, name: 'Share' },
   // { icon: <FavoriteIcon />, name: 'Like' }
 ];
@@ -34,10 +35,9 @@ function PageTitle(props) {
     setOpen(false);
   };
 
-  const handleClick = (action) => {
-    console.log(action)
-    if(action === "Edit")
-       props.editClicked();
+  const handleClick = action => {
+    console.log(action);
+    props.actionClicked(action);
     setOpen(false);
   };
 
@@ -55,25 +55,29 @@ function PageTitle(props) {
           </div>
         </div>
         <div className="d-flex align-items-center">
-          <div className="speedial-wrapper">
-            <SpeedDial
-              ariaLabel="SpeedDial menu"
-              icon={<SpeedDialIcon openIcon={<ListIcon />} />}
-              onClose={handleClose}
-              onOpen={handleOpen}
-              direction="left"
-              open={open}>
-              {actions.map(action => (
-                <SpeedDialAction
-                  id={action.name}
-                  key={action.name}
-                  icon={action.icon}
-                  tooltipTitle={action.name}
-                  onClick={() => handleClick(action.name)}
-                />
-              ))}
-            </SpeedDial>
-          </div>
+          {props.displayBtn ? (
+            <div className="speedial-wrapper">
+              <SpeedDial
+                ariaLabel="SpeedDial menu"
+                icon={<SpeedDialIcon openIcon={<ListIcon />} />}
+                onClose={handleClose}
+                onOpen={handleOpen}
+                direction="left"
+                open={open}>
+                {actions.map(action => (
+                  <SpeedDialAction
+                    id={action.name}
+                    key={action.name}
+                    icon={action.icon}
+                    tooltipTitle={action.name}
+                    onClick={() => handleClick(action.name)}
+                  />
+                ))}
+              </SpeedDial>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </Paper>
     </Fragment>
