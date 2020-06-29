@@ -92,7 +92,8 @@ function DashboardDefault(props) {
     console.log(values);
   };
 
-  console.log(values);
+  // console.log("zzzzzzzzzzziiiizzzzzzzzzz");
+  // console.log(process.env.REACT_APP_PUBLICURL)
 
   if (props.userState.detail === undefined) {
     console.log('#############inside############');
@@ -110,6 +111,7 @@ function DashboardDefault(props) {
     return (
       <Fragment>
         <PageTitle
+        displayPrint="none"
           titleHeading="Home"
           titleDescription="The Resturant Detail Page."
           actionClicked={handleSPClick}
@@ -117,7 +119,7 @@ function DashboardDefault(props) {
         />
         <Grid container spacing={4}>
           <Grid item xs={12} sm={12}>
-            <Card className="p-4 mb-4">
+            <Card className="p-4 mb-4" displayPrint="block">
               {mode === 'View' ? (
                 <>
                   {/* {Object.keys(detail).map(key => {
@@ -297,8 +299,11 @@ console.log(key)
                   </Button>
                 </form>
               ) : (
+                <>
                 
-                <QRCode value={detail.id} />
+                <QRCode value={`${process.env.REACT_APP_PUBLICURL}${detail.id}`} />
+                <Typography variant="body2" className="pt-5">{`${process.env.REACT_APP_PUBLICURL}${detail.id}`}</Typography>
+                </>
               )}
             </Card>
           </Grid>

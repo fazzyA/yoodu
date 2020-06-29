@@ -18,7 +18,7 @@ exports.addRole = functions.https.onCall((data, context) => {
     .then(user => {
       return admin.auth().setCustomUserClaims(user.uid, {
         role: data.role
-      });
+      }); 
     })
     .then(() => {
       return {
