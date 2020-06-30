@@ -1,9 +1,9 @@
 export default (
   state = {
     status: 'loading',
-    availableRestaurants: [],
-    sheduledRestaurants: [],
-    allRestaurants: []
+    attributes: {},
+    categories:[],
+    
   },
   action
 ) => {
@@ -17,9 +17,20 @@ export default (
         // add all the cards from the database
         // they will come in a json format,
         // so we need to convert them to array
-        availableRestaurants: Object.values(action.payload).concat(
-          state.availablejobs
-        ),
+        attributes: { ...action.payload },
+        status: 'created'
+      };
+
+      case 'AddRestaurantCategory':
+      console.log('getting ', action.payload);
+      console.log(action.payload);
+      return {
+        // keep the old state
+        ...state,
+        // add all the cards from the database
+        // they will come in a json format,
+        // so we need to convert them to array
+        attributes: { ...action.payload },
         status: 'created'
       };
 
@@ -53,14 +64,15 @@ export default (
         status: 'deleted'
       };
 
-    case 'listRestaurants':
+    case 'listCategories':
       // console.log("getting################################# ", action.payload);
       console.log(action.payload);
       return {
         ...state,
         // availableRestaurants: action.payload.jobs,
         status: 'loaded',
-        allRestaurants: action.payload.jobs
+        categories: action.payload
+
       };
 
     default:

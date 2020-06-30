@@ -1,4 +1,4 @@
-import { firestore, firebase } from '../../config/configureStore';
+import { firestore, firebase } from '../../config/firebaseConfig';
 import * as firebaser from 'firebase'; // get me the firebase restaurantbase
 // const restaurantbaseRef = firebase.restaurantbase().ref();
 // console.log(restaurantbaseRef)
@@ -7,23 +7,31 @@ import * as firebaser from 'firebase'; // get me the firebase restaurantbase
 var user = firebase.auth().currentUser;
 
 // Add new restaurant
-export const createrestaurant = restaurant => async dispatch => {
+export const addCategory = category => async (dispatch, getState) => {
+  // console.log("****************************************************************************")
   console.log(user);
   //restaurant.userId = user.uid
-
-  firebase.auth().onAuthStateChanged(function(user) {
+  firebase.auth().onAuthStateChanged(async user => {
     if (user) {
+      category.status = 'open';
       console.log(user);
-      restaurant.userid = user.uid;
-      restaurant.status = 'open';
-      restaurant.createdAt = Date.now();
-      console.log(restaurant);
+      category.createdAt = Date.now();
+
+      console.log(category);
+
+      const state = getState();
+      console.log(state);
+
+      const restaurant = state.restaurantState.attributes;
+
       firestore
-        .collection('restaurants')
-        .add(restaurant)
+        .collection('restaurant')
+        .doc(restaurant.id)
+        .collection('categories')
+        .add(category)
         .then(() => {
           // register was succesful by sending true
-          dispatch({ type: 'Createrestaurant', payload: { restaurant } });
+          dispatch({ type: 'addCategory', payload: { category } });
           dispatch({ type: 'clearError' });
         })
         .catch(err => {
@@ -51,43 +59,44 @@ export const createrestaurant = restaurant => async dispatch => {
 };
 
 // get all available restaurants
-export const listrestaurants = type => async (dispatch, getState) => {
+export const listCategories = type => async (dispatch, getState) => {
   // console.log("****************************************************************************")
-  const state = getState();
-  console.log(state.authState);
+  // const state = getState();
+  // console.log(state.authState);
   var user = firebase.auth().currentUser;
   console.log(user);
   if (user) {
     console.log(user);
-    var restaurants = [];
-    let restaurantRef = null;
-    let rjRef = firestore.collection('rejectedrestaurants').doc(user.uid);
-    if (state.authState.currentUser.role === 'client' && type !== 'open')
-      restaurantRef = firestore
-        .collection('restaurants')
-        .where('status', '==', type)
-        .where('acceptedBy', '==', user.uid);
-    else
-      restaurantRef = firestore
-        .collection('restaurants')
-        .where('status', '==', type);
+    
+    const state = getState();
+      console.log(state);
+
+    let catRef = firestore
+      .collection('restaurant')
+      .doc(state.restaurantState.attributes.id)
+      .collection('categories');
+    // if (state.authState.currentUser.role === 'client' && type !== 'open')
+    //   restaurantRef = firestore
+    //     .collection('restaurants')
+    //     .where('status', '==', type)
+    //     .where('acceptedBy', '==', user.uid);
+    // else
+    //   restaurantRef = firestore
+    //     .collection('restaurants')
+    //     .where('status', '==', type);
 
     try {
-      const arestaurants = await restaurantRef.get();
-      const rjarray = await rjRef.get();
-      const rejected = rjarray.data() ? rjarray.data().rrestaurants : [];
-      // const adminck = await user.getIdTokenResult()
-      // // console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-      // console.log(adminck)
-      arestaurants.forEach(restaurant => {
-        if (!rejected.includes(restaurant.id))
-          restaurants.push({ ...restaurant.data(), id: restaurant.id });
-        else if (state.authState.currentUser.role === 'admin') {
-          restaurants.push({ ...restaurant.data(), id: restaurant.id });
-        }
+      // const arestaurants = await restaurantRef.get();
+      const catarray = await catRef.get();
+      const categories = [];
+      
+      catarray.forEach(categoryList => {
+        categories.push({ ...categoryList.data(), id: categoryList.id });
       });
-      console.log(restaurants);
-      dispatch({ type: 'listrestaurants', payload: { restaurants } });
+      
+      console.log(categories);
+
+      dispatch({ type: 'listCategories', payload: categories });
       dispatch({ type: 'clearError' });
       // console.log("end")
     } catch (err) {

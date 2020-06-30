@@ -28,6 +28,8 @@ export const getUser = uid => async (dispatch, getState) => {
         console.log(usr.data());
         users.push({ ...usr.data(), id: usr.id });
       });
+      if(role==="restaurant")
+      dispatch({ type: 'CreateRestaurant', payload: { ...users[0] } })
       // console.log(users);
       dispatch({ type: 'getUser', payload: { ...users[0] } });
       //{...users, userDetail : users.filter((user)=>user.userId===uid ) } });
