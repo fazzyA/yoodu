@@ -2,8 +2,7 @@ export default (
   state = {
     status: 'loading',
     attributes: {},
-    categories:[],
-    
+    categories: []
   },
   action
 ) => {
@@ -21,46 +20,55 @@ export default (
         status: 'created'
       };
 
-      case 'AddRestaurantCategory':
+    case 'addCategory':
       console.log('getting ', action.payload);
       console.log(action.payload);
+      const upcategories = state.categories.concat([action.payload]);
       return {
         // keep the old state
         ...state,
-        // add all the cards from the database
-        // they will come in a json format,
-        // so we need to convert them to array
-        attributes: { ...action.payload },
+
+        categories: upcategories,
         status: 'created'
       };
 
-    case 'UpdateRestaurant':
+    case 'UpdateCategory':
       console.log('getting ', action.payload);
 
       console.log(action.payload);
-      let allRestaurants = state.allRestaurants.map(job => {
-        if (job.id === action.payload.job.id)
-          job = Object.values(action.payload);
+      let setcategories = state.categories.map(cat => {
+        if (cat.id === action.payload.id) 
+        return cat = action.payload;
+        else
+        return cat
+    
       });
+      
       return {
         // keep the old state
         ...state,
-        allRestaurants,
+        categories: setcategories,
+        // allRestaurants,
         status: 'created'
       };
 
-    case 'deleteRestaurant':
+    case 'deleteCategory':
       console.log("deleting' ", action.payload);
+      console.log(state);
       console.log(action.payload);
-      console.log(action.payload);
-      allRestaurants = state.allRestaurants.filter(
-        job => job.id !== action.payload.job.id
-      );
+      // let categories = state.categories.filter(
+      //   cat => cat.id !== action.payload
+      // );
+
+      // categories = categories.map((cat, index) => {
+      //   cat.sno = index;
+      //   return cat;
+      // });
 
       return {
         // keep the old state
         ...state,
-        allRestaurants,
+        categories: action.payload,
         status: 'deleted'
       };
 
@@ -72,7 +80,19 @@ export default (
         // availableRestaurants: action.payload.jobs,
         status: 'loaded',
         categories: action.payload
+      };
 
+      case 'sortCategories':
+      console.log("sorted ", action.payload);
+      console.log(state);
+      console.log(action.payload);
+      // let categories =
+
+      return {
+        // keep the old state
+        ...state,
+        categories: action.payload,
+        status: 'sorted'
       };
 
     default:

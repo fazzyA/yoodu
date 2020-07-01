@@ -3,8 +3,12 @@ import EasyEdit from 'react-easy-edit';
  
 function TextBox(props) {
  
-  const save = (value) => {props.saveTextBox(value)}
-  const cancel = () => {alert("Cancelled")}
+  const save = (value) => {
+console.log(props.id)
+
+    props.saveTextBox({id: props.id, name : value})
+  }
+  const cancel = () => {}
  
   return (
     <EasyEdit
@@ -15,7 +19,7 @@ function TextBox(props) {
       onCancel={cancel}
       saveButtonLabel="Save"
       cancelButtonLabel="Cancel"
-      attributes={{ name: "awesome-input", id: 1}}
+      attributes={{ name: `name_${props.catid}`, id: `name_${props.catid}`}}
     //  instructions="Star this repo!"
     />
   );

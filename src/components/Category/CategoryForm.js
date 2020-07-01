@@ -36,7 +36,10 @@ import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
 import {
   addCategory,
-  listCategories
+  listCategories,
+  deleteCategory,
+  updateCategory,
+  sortCategories
 } from '../../Store/actions/restaurantAction';
 
 // import classes from '*.module.css';
@@ -73,9 +76,26 @@ const DragHandle = SortableHandle(() => {
   );
 });
 
-const SortableItem = SortableElement(({ text }) => {
+const SortableItem = SortableElement(props => {
+  const { text, catid, deleteCategory } = props;
   const classes = useStyles();
+  const handleDelete = catid => {
+    console.log(catid);
+    if (catid) deleteCategory(catid);
+  };
+  const handleChange = e => {
+    console.log(e.target.id);
+    console.log(e.target.type);
+    const info = e.target.id.split('_');
+    console.log(info);
 
+    props.updateCategory({ id: info[1], [info[0]]: e.target.checked });
+  };
+
+  const saveTextBox = value => {
+    console.log(value);
+    props.updateCategory({ id: value.id, name: value.name });
+  };
   return (
     <ListItem ContainerComponent="div">
       <Card className={classes.item}>
@@ -84,15 +104,16 @@ const SortableItem = SortableElement(({ text }) => {
           <DragHandle />
           {/* </ListItemSecondaryAction> */}
           {/* <ListItemText primary={text} /> */}
-          <TextBox value={text} />
+          <TextBox value={text} id={catid} saveTextBox={saveTextBox} />
 
           <FormControlLabel
             control={
               <Switch
-                //     checked={state.checkedB}
-                //   onChange={handleChange}
-                name="checkedB"
+                checked={props.special}
+                onChange={handleChange}
+                name="special"
                 color="primary"
+                id={'special_' + catid}
               />
             }
             label="Special"
@@ -101,16 +122,17 @@ const SortableItem = SortableElement(({ text }) => {
           <FormControlLabel
             control={
               <Switch
-                //     checked={state.checkedB}
-                //   onChange={handleChange}
-                name="checkedB"
+                checked={props.imghide}
+                onChange={handleChange}
+                name="imghide"
                 color="primary"
+                id={'imghide_' + catid}
               />
             }
             label="Hide image / description"
           />
 
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" onClick={() => handleDelete(catid)}>
             <DeleteIcon />
           </IconButton>
         </FormGroup>
@@ -119,13 +141,34 @@ const SortableItem = SortableElement(({ text }) => {
   );
 });
 
-const SortableListContainer = SortableContainer(({ categories }) => (
-  <List component="div">
-    {categories.map(({ sno, name }, index) => (
-      <SortableItem key={sno} index={index} text={name} />
-    ))}
-  </List>
-));
+// const mapDispatchToProps1 = dispatch => ({
+//   deleteCategory: id => dispatch(deleteCategory(id))
+
+//   // clearErrors: () => dispatch(clearErrors())
+// });
+// connect(null, mapDispatchToProps1)(SortableElement);
+
+const SortableListContainer = SortableContainer(
+  ({ categories, deleteCategory, updateCategory }) => {
+    console.log(categories);
+    return (
+      <List component="div">
+        {categories.map(({ sno, name, id, special, imghide }, index) => (
+          <SortableItem
+            key={sno}
+            index={index}
+            text={name}
+            catid={id}
+            special={special}
+            imghide={imghide}
+            deleteCategory={deleteCategory}
+            updateCategory={updateCategory}
+          />
+        ))}
+      </List>
+    );
+  }
+);
 
 const SortableList = props => {
   const [categories, setCategories] = useState([]);
@@ -137,11 +180,17 @@ const SortableList = props => {
   }, []);
 
   useEffect(() => {
-    console.log(props.restaurantState)
+    console.log(props.restaurantState);
     setCategories(props.restaurantState.categories);
-  }, [props.restaurantState]);
+  }, [props.restaurantState.categories]);
 
-  const addCategory = () => {
+  useEffect(() => {
+    console.log(categories);
+    props.sortCategories(categories)
+    // setCategories(props.restaurantState.categories);
+  }, [categories]);
+
+  const addCategory = async () => {
     console.log(categories);
     const lastIndex = categories.length;
     console.log(lastIndex);
@@ -154,14 +203,27 @@ const SortableList = props => {
       }
     ];
     // categories.push(newcat)
-    setCategories(categories => categories.concat(newcat));
-    props.addCategory(newcat[0]);
+    await props.addCategory(newcat[0]);
+    setCategories(props.restaurantState.categories);
+  };
+
+  const deleteCategory = async id => {
+    console.log(id);
+    await props.deleteCategory(id);
+    setCategories(props.restaurantState.categories);
+  };
+
+  const updateCategory = async cat => {
+    console.log(cat);
+    props.updateCategory(cat);
   };
 
   const classes = useStyles();
 
-  const onSortEnd = ({ oldIndex, newIndex }) => {
+  const onSortEnd = async ({ oldIndex, newIndex }) => {
     setCategories(categories => arrayMove(categories, oldIndex, newIndex));
+    console.log(categories)
+    //props.sortCategories(categories)
   };
   console.log('-------------------------');
   console.log(categories);
@@ -174,6 +236,8 @@ const SortableList = props => {
         onSortEnd={onSortEnd}
         useDragHandle={true}
         lockAxis="y"
+        deleteCategory={deleteCategory}
+        updateCategory={updateCategory}
       />
       <div className={classes.centerit}>
         <Fab color="primary" aria-label="add" onClick={addCategory}>
@@ -188,7 +252,11 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   addCategory: values => dispatch(addCategory(values)),
-  listCategories: () => dispatch(listCategories())
+  listCategories: () => dispatch(listCategories()),
+  deleteCategory: id => dispatch(deleteCategory(id)),
+  updateCategory: id => dispatch(updateCategory(id)),
+  sortCategories: cats => dispatch(sortCategories(cats)),
+
 
   // clearErrors: () => dispatch(clearErrors())
 });
