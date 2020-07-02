@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { listCategories } from '../../Store/actions/restaurantAction';
+
 import { matchPath } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
@@ -70,15 +73,38 @@ const reduceChildRoutes = props => {
 
 const SidebarMenu = props => {
   const { title, pages, className, component: Component, ...rest } = props;
-
+  // console.log('()())()()()()()()()()())()()()(');
+  // console.log(pages);
+  // console.log(props.restaurantState.categories);
   const router = useRouter();
+  const [categoriesPages, setCategoriesPages] = useState([]);
 
+  useEffect(() => {
+    if(props.restaurantState.attributes.id)
+    (async () => {
+      await props.listCategories();
+    })();
+  }, [props.restaurantState.attributes]);
+
+  useEffect(() => {
+    
+    console.log(props.restaurantState);
+    const cpages = props.restaurantState.categories.map(cat=>{
+     return {label: cat.name, description: `Menu ${cat.name} category page`, to: `/category/${cat.id}`} 
+    })
+    setCategoriesPages(cpages)
+    // setCategories(props.restaurantState.categories);
+  }, [props.restaurantState.categories]);
+
+  // {label: "Home", description: "Dashboard page", to: "/DashboardDefault"}
   return (
     <Component {...rest} className={className}>
       {title && (
         <Typography className="app-sidebar-heading">{title}</Typography>
       )}
       <SidebarMenuList depth={0} pages={pages} router={router} />
+      
+      <SidebarMenuList depth={1} pages={categoriesPages} router={router} />
     </Component>
   );
 };
@@ -94,4 +120,10 @@ SidebarMenu.defaultProps = {
   component: 'nav'
 };
 
-export default SidebarMenu;
+const mapStateToProps = state => ({
+  ...state
+});
+const mapDispatchToProps = dispatch => ({
+  listCategories: () => dispatch(listCategories())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarMenu);

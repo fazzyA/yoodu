@@ -17,7 +17,7 @@ import Login from './components/auth/Login';
 import Signup from './components/auth/SignUp';
 import ForgotPassword from './components/auth/ForgotPassword';
 import Restaurant from './components/Restaurant/RestaurantForm';
-import Category from './components/Category/CategoryForm';
+import Categories from './components/Category/CategoryForm';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import authAction from './Store/actions/authAction';
@@ -35,6 +35,8 @@ const useStyles = makeStyles(theme => ({
 const DashboardDefault = lazy(() => import('./example-pages/DashboardDefault'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
 const Home = lazy(()=> import('./components/Customer/Home'));
+const Single = lazy(()=> import('./components/Category/Single'));
+const AddProduct = lazy(()=> import('./components/Product/Form'))
 
 const Routes = props => {
   const location = useLocation();
@@ -112,9 +114,11 @@ const Routes = props => {
               <Route
                 path={[
                   '/DashboardDefault',
-                  // '/login',
+                  '/categories',
                   '/restaurant',
-                  '/category'
+                  '/category',
+                  '/category/:catid/add'
+
                 ]}>
                 <LeftSidebar>
                   <Switch location={location} key={location.pathname}>
@@ -130,7 +134,9 @@ const Routes = props => {
                       />
                       {/* <Route path="/login" component={Login} /> */}
                       <Route path="/restaurant" component={Restaurant} />
-                      <Route path="/category" component={Category} />
+                      <Route path="/categories" component={Categories} />
+                      <Route exact path="/category/:catid" component={Single} />
+                      <Route exact path="/category/:catid/add" component={AddProduct} />
                     </motion.div>
                   </Switch>
                 </LeftSidebar>

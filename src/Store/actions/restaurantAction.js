@@ -283,3 +283,28 @@ export const sortCategories = categories => async (dispatch, getState) => {
       }
     });
 };
+
+export const getCategory = catid => async (dispatch, getState) => {
+  console.log('inside get category');
+  //restaurant.userId = user.uid
+  var user = firebase.auth().currentUser;
+  if (user) {
+    console.log(user);
+
+    const state = getState();
+    console.log(state);
+
+    const ccat = state.restaurantState.categories.find(cat => cat.id === catid);
+    console.log(ccat);
+    return ccat;
+  } // user is undefined if no user signed in
+  else
+    dispatch({
+      type: 'setError',
+      payload: {
+        msg: 'undefined user',
+        status: 'error',
+        id: 77889
+      }
+    });
+};

@@ -35,7 +35,9 @@ var iconsMap = {
   PersonIcon: PersonIcon,
   ReceiptIcon: ReceiptIcon,
   SettingsIcon: SettingsIcon,
-  ViewModuleIcon: ViewModuleIcon
+  ViewModuleIcon: ViewModuleIcon,
+  Home: DashboardIcon,
+  Menu: ListAltIcon
 };
 
 export default [
@@ -45,20 +47,21 @@ export default [
       `[
         {
           "label": "Home",
-          "description": "Wide selection of buttons that feature different styles for backgrounds, borders and hover options!",
+          "description": "Dashboard page",
           "to": "/DashboardDefault"
           },
  
         {
           "label": "Menu",
           "description": "This is a Menu Category page",
-          "to": "/category"
+          "to": "/categories"
         }
 ]`,
       (key, value) => {
         if (key === 'icon') {
           return iconsMap[value];
         } else {
+          console.log(value)
           return value;
         }
       }
