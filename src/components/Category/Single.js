@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PageTitle from '../../layout-components/PageTitle';
 import {
   Grid,
@@ -42,8 +42,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Single(props) {
+function Single(props) {
   const classes = useStyles();
+  const [cat,setCat] =useState({name : "..."});
+  useEffect(() => {
+    if(props.restaurantState.categories.length>1)
+    setCat(props.restaurantState.categories.find(cat => cat.id === props.match.params.catid));
+    // console.log(ccat);
+console.log(props.match.params.catid)
+    
+  }, [props.restaurantState.categories]);
+  console.log(cat)
 
   const [state, setState] = React.useState({
     columns: [
@@ -69,7 +78,7 @@ export default function Single(props) {
 console.log(props)
   return (
         <React.Fragment>
-      <PageTitle titleHeading="Menu" titleDescription="Categories Detail" />
+      <PageTitle titleHeading={cat.name} titleDescription="Items Detail" />
       <MaterialTable
       title=""
       columns={state.columns}
@@ -97,3 +106,9 @@ console.log(props)
     </React.Fragment>
   );
 }
+
+
+const mapStateToProps = state => ({
+  ...state
+});
+export default connect(mapStateToProps, null)(Single);

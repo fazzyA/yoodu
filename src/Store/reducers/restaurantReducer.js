@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 export default (
   state = {
     status: 'loading',
@@ -37,13 +38,10 @@ export default (
 
       console.log(action.payload);
       let setcategories = state.categories.map(cat => {
-        if (cat.id === action.payload.id) 
-        return cat = action.payload;
-        else
-        return cat
-    
+        if (cat.id === action.payload.id) return (cat = action.payload);
+        else return cat;
       });
-      
+
       return {
         // keep the old state
         ...state,
@@ -82,8 +80,8 @@ export default (
         categories: action.payload
       };
 
-      case 'sortCategories':
-      console.log("sorted ", action.payload);
+    case 'sortCategories':
+      console.log('sorted ', action.payload);
       console.log(state);
       console.log(action.payload);
       // let categories =
@@ -93,6 +91,24 @@ export default (
         ...state,
         categories: action.payload,
         status: 'sorted'
+      };
+
+    case 'addItem':
+      console.log('getting ', action.payload);
+      // console.log(action.payload);
+      const item = action.payload;
+      const category = state.categories.filter(cat => cat.id !== item.catid);
+      if (!category.items) {
+        category.items = [];
+        category.items.push(item);
+      }
+      category.items.push(item);
+      return {
+        // keep the old state
+        ...state,
+
+        // categories: upcategories,
+        status: 'created'
       };
 
     default:

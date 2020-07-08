@@ -41,6 +41,8 @@ const Customer = props => {
     // console.log(validator);
   });
 
+  
+  
   const handleSubmit = async event => {
     event.preventDefault();
     console.log(validator);
@@ -162,5 +164,8 @@ const mapDispatchToProps = dispatch => ({
   clearErrors: () => dispatch(clearErrors())
 });
 export default withRouter(
+
   connect(mapStateToProps, mapDispatchToProps)(Customer)
 );
+
+

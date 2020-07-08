@@ -284,8 +284,8 @@ export const sortCategories = categories => async (dispatch, getState) => {
     });
 };
 
-export const getCategory = catid => async (dispatch, getState) => {
-  console.log('inside get category');
+export const addItem = item => async (dispatch, getState) => {
+  console.log('inside add items');
   //restaurant.userId = user.uid
   var user = firebase.auth().currentUser;
   if (user) {
@@ -293,10 +293,94 @@ export const getCategory = catid => async (dispatch, getState) => {
 
     const state = getState();
     console.log(state);
+    item.soldout = false;
+    item.hide = false;
+    item.createdAt = Date.now();
 
-    const ccat = state.restaurantState.categories.find(cat => cat.id === catid);
-    console.log(ccat);
-    return ccat;
+    const restaurant = state.restaurantState.attributes;
+    console.log(restaurant.id);
+    console.log(item);
+    item.image = item.image.name;
+    
+    const options = item.options;
+    const variations = item.variations;
+    delete item.options;
+    delete item.variations;
+    try {
+      const ritem = await firestore
+        .collection('restaurant')
+        .doc(restaurant.id)
+        .collection('categories')
+        .doc(item.catid)
+        .collection('items')
+        .add(item);
+
+      console.log(ritem);
+      console.log(ritem.id);
+
+      options.map(async opt => {
+        delete opt.tableData;
+        const ropt = await firestore
+          .collection('restaurant')
+          .doc(restaurant.id)
+          .collection('categories')
+          .doc(item.catid)
+          .collection('items')
+          .doc(ritem.id)
+          .collection('options')
+          .add({option : opt.option});
+        console.log(`options id ${ropt.id}`);
+        opt.detail.map(async sub => {
+          delete sub.tableData;
+          const rsub = await firestore
+            .collection('restaurant')
+            .doc(restaurant.id)
+            .collection('categories')
+            .doc(item.catid)
+            .collection('items')
+            .doc(ritem.id)
+            .collection('options')
+            .doc(ropt.id)
+            .collection('detail')
+            .add(sub);
+
+            console.log(rsub)
+        });
+
+        console.log(ropt);
+      });
+
+      variations.map(async opt => {
+        delete opt.tableData;
+        const ropt = await firestore
+          .collection('restaurant')
+          .doc(restaurant.id)
+          .collection('categories')
+          .doc(item.catid)
+          .collection('items')
+          .doc(ritem.id)
+          .collection('variations')
+          .add(opt);
+
+        console.log(ropt);
+      });
+      // register was succesful by sending true
+      dispatch({
+        type: 'addItem',
+        payload: { ...item }
+      });
+      dispatch({ type: 'clearError' });
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: 'setError',
+        payload: {
+          msg: err.message,
+          status: 'error',
+          id: err.code
+        }
+      });
+    }
   } // user is undefined if no user signed in
   else
     dispatch({
